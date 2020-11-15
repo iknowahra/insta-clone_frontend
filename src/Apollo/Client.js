@@ -1,12 +1,26 @@
-import ApolloClient from 'apollo-boost';
-import { InMemoryCache } from '@apollo/client';
-import { defaults, resolvers } from './LocalState';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { isLogginVar, resolvers, typeDefs } from './LocalState';
+
+const cache = new InMemoryCache({
+  typePolicies: {
+    Home: {
+      fields: {
+        isLoggedIn: {
+          read() {
+            return isLogginVar();
+          },
+        },
+      },
+    },
+  },
+});
 
 export default new ApolloClient({
-  uri: 'http://localhost:4000',
-  cache: new InMemoryCache(),
-  clientState: {
-    defaults,
-    resolvers,
+  cache,
+  uri: 'http://localhost:4000/graphql',
+  headers: {
+    authorization: localStorage.getItem('token'),
   },
+  typeDefs,
+  resolvers,
 });

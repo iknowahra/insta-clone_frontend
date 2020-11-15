@@ -1,22 +1,17 @@
-export const defaults = {
-  isLoggedIn: !!localStorage.getItem('token'),
-};
+import { makeVar, gql } from '@apollo/client';
 
-export const resolvers = {
-  Mutation: {
-    logUserIn: (_, { token }, { cache }) => {
-      localStorage.setItem('token', token);
-      cache.writeData({
-        data: {
-          isLoggedIn: !!localStorage.getItem('token'),
-        },
-      });
-      return null;
-    },
-    logUserOut: () => {
-      localStorage.removeItem('token');
-      window.location.reload();
-      return null;
-    },
-  },
-};
+export const typeDefs = gql`
+  extend type Query {
+    isLoggedIn: Boolean!
+  }
+`;
+
+export const IS_LOGGED_IN = gql`
+  query IsUserLoggedIn {
+    isLoggedIn @client
+  }
+`;
+
+export const isLogginVar = makeVar(!!localStorage.getItem('token'));
+
+export const resolvers = {};
