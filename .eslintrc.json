@@ -13,7 +13,11 @@
     "react/jsx-filename-extension": 0,
     "react/jsx-one-expression-per-line": 0,
     "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error"
+    "react/jsx-uses-vars": "error",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "react/jsx-props-no-spreading": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/anchor-has-content": "off"
   },
   "env": {
     "browser": true
