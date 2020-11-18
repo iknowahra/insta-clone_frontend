@@ -60,7 +60,14 @@ const Guide = styled.p`
   }
 `;
 
-export default () => {
+export default ({
+  username,
+  firstName,
+  lastName,
+  email,
+  password,
+  onSignup,
+}) => {
   return (
     <>
       <Intro>
@@ -70,12 +77,12 @@ export default () => {
         <Or>or</Or>
       </Intro>
 
-      <form>
-        <Input placeholder="Email" />
-        <Input placeholder="First name" />
-        <Input placeholder="Last name" />
-        <Input placeholder="Username" />
-        <Input placeholder="Password" />
+      <form onSubmit={onSignup}>
+        <Input placeholder="Email" {...email} type="email" />
+        <Input placeholder="First name" {...firstName} />
+        <Input placeholder="Last name" {...lastName} />
+        <Input placeholder="Username" {...username} />
+        <Input placeholder="Password" {...password} type="password" />
         <Button text="Sign up" />
       </form>
       <Guide>

@@ -1,6 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Input from '../../Components/Input';
@@ -50,12 +48,21 @@ const Line = styled.div`
   top: 8px;
 `;
 
-export default () => {
-  return (
+export default ({ email, password, secret, onLogin, onConfirm, action }) => {
+  return action === 'confirm' ? (
     <>
-      <form>
-        <Input placeholder="Username, or email" />
-        <Input placeholder="Password" />
+      {' '}
+      <form onSubmit={onConfirm}>
+        <Input placeholder="Email" {...email} type="email" />
+        <Input placeholder="secret" {...secret} />
+        <Button text="Confirm" />
+      </form>
+    </>
+  ) : (
+    <>
+      <form onSubmit={onLogin}>
+        <Input placeholder="Email" {...email} type="email" />
+        <Input placeholder="Password" {...password} type="password" />
         <Button text="Log In" />
       </form>
       <Facebook>
