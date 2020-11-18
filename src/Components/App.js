@@ -1,11 +1,15 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
 import { useReactiveVar } from '@apollo/client';
+
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from '../Styles/GlobalStyles';
+
 import Theme from '../Styles/Theme';
 import Router from './Router';
-import { isLogginVar } from '../Apollo/LocalState';
 import Footer from './Footer';
+import { isLogginVar } from '../Apollo/LocalState';
 
 function App() {
   const isLoggedIn = useReactiveVar(isLogginVar);
@@ -21,6 +25,7 @@ function App() {
           <GlobalStyles />
           <Router isLoggedIn={isLoggedIn} />
           <Footer />
+          <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
         </Wrapper>
       </ThemeProvider>
     </>
