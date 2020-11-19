@@ -1,6 +1,6 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import styled from 'styled-components';
-
 import LogIn from './LoginPresenter';
 import SignUp from './SignupPresenter';
 
@@ -70,6 +70,7 @@ export default ({
   onLogin,
   onSignup,
   onConfirm,
+  onSendEmail,
 }) => {
   return (
     <Wrapper>
@@ -112,7 +113,16 @@ export default ({
             <Link onClick={() => setAction('signUp')}>Sign up</Link>
           </>
         ) : (
-          <>Check your email for secret</>
+          <>
+            Check your email for secret.{' '}
+            <Link
+              onClick={() => {
+                onSendEmail();
+              }}
+            >
+              Resend email
+            </Link>
+          </>
         )}
       </StateChanger>
     </Wrapper>
