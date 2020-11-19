@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import Input from '../../Components/Input';
@@ -51,7 +51,6 @@ const Line = styled.div`
 export default ({ email, password, secret, onLogin, onConfirm, action }) => {
   return action === 'confirm' ? (
     <>
-      {' '}
       <form onSubmit={onConfirm}>
         <Input placeholder="Email" {...email} type="email" />
         <Input placeholder="secret" {...secret} />

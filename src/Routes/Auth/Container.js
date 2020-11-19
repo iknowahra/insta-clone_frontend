@@ -20,6 +20,8 @@ export default () => {
       const { requestSecret } = data;
       if (requestSecret.error !== null) {
         toast.error(requestSecret.error);
+      } else {
+        toast.success('Email sent! Check your email box');
       }
     },
     variables: {
@@ -30,7 +32,7 @@ export default () => {
 
   const [confirmSecretMutation] = useMutation(CONFIRM_SECRET, {
     update: (_, { data }) => {
-      const confirmSecret = data;
+      const { confirmSecret } = data;
       if (!confirmSecret.ok) {
         toast.error(confirmSecret.error);
       } else {
@@ -71,6 +73,7 @@ export default () => {
           setTimeout(() => setAction('logIn'), 3000);
         }
       } else {
+        requestSecretMutation();
         toast.success('Account created! Log In now');
         setTimeout(() => setAction('logIn'), 3000);
       }
@@ -116,6 +119,10 @@ export default () => {
     }
   };
 
+  const onSendEmail = () => {
+    requestSecretMutation();
+  };
+
   return (
     <Presenter
       setAction={setAction}
@@ -129,6 +136,7 @@ export default () => {
       onLogin={onLogin}
       onSignup={onSignup}
       onConfirm={onConfirm}
+      onSendEmail={onSendEmail}
     />
   );
 };
