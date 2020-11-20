@@ -13,5 +13,3 @@ export const IS_LOGGED_IN = gql`
 `;
 
 export const isLogginVar = makeVar(!!localStorage.getItem('token'));
-
-export const resolvers = {};
