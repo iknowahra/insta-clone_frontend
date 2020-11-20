@@ -3,6 +3,7 @@ const INPUT_BORDER = '1px solid rgba(var(--ca6,219,219,219),1)';
 const BORDER_RADIUS = '4px';
 
 export default {
+  maxWidth: '935px',
   bgColor: '#FAFAFA',
   blackColor: '#262626',
   darkGreyColor: '#999',
