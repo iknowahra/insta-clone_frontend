@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useMutation } from '@apollo/client';
+import { isLogginVar } from '../../Apollo/LocalState';
 import Presenter from './Presenter';
 import useInput from '../../Hooks/useInput';
 import { CONFIRM_SECRET, LOG_IN, REQUEST_SECRET, SIGN_UP } from './Queries';
@@ -37,6 +38,7 @@ export default () => {
         toast.error(confirmSecret.error);
       } else {
         toast.success('Success!');
+        setTimeout(() => isLogginVar(true), 3000);
       }
     },
     variables: {
@@ -48,6 +50,7 @@ export default () => {
   const [loginEmailMutation] = useMutation(LOG_IN, {
     update: (_, { data }) => {
       const { loginEmail } = data;
+      localStorage.setItem('token', loginEmail.token);
       if (loginEmail.error !== null) {
         toast.error(loginEmail.error);
         if (loginEmail.error === 'There is no user.') {
@@ -56,8 +59,9 @@ export default () => {
       } else {
         toast.success('Log In Success!');
         if (!loginEmail.user.confirmSecret) {
-          // requestSecretMutation();
           setTimeout(() => setAction('confirm'), 3000);
+        } else {
+          setTimeout(() => isLogginVar(true), 3000);
         }
       }
     },

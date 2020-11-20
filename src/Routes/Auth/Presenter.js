@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import LogIn from './LoginPresenter';
 import SignUp from './SignupPresenter';
+import { LogoInsta } from '../../Components/Icons';
 
 const Wrapper = styled.div`
   position: relative;
@@ -76,10 +77,7 @@ export default ({
     <Wrapper>
       <Form>
         <Logo>
-          <img
-            alt="logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1024px-Instagram_logo.svg.png"
-          />
+          <LogoInsta />
         </Logo>
         {action === 'signUp' ? (
           <SignUp
@@ -102,17 +100,19 @@ export default ({
         )}
       </Form>
       <StateChanger>
-        {action === 'signUp' ? (
+        {action === 'signUp' && (
           <>
             Have an account?{' '}
             <Link onClick={() => setAction('logIn')}>Log in</Link>
           </>
-        ) : action === 'logIn' ? (
+        )}{' '}
+        {action === 'logIn' && (
           <>
             Don't have an account?{' '}
             <Link onClick={() => setAction('signUp')}>Sign up</Link>
           </>
-        ) : (
+        )}{' '}
+        {action === 'confirm' && (
           <>
             Check your email for secret.{' '}
             <Link

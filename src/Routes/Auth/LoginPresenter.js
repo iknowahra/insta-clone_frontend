@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 
+import { LogoFbSmall } from '../../Components/Icons';
+
 const Facebook = styled.div`
   margin: 20px 0 0 0;
   display: flex;
@@ -68,10 +70,7 @@ export default ({ email, password, secret, onLogin, onConfirm, action }) => {
         <Line />
         <Or>or</Or>
         <a href="#">
-          <img
-            alt="fbLogo"
-            src="https://i.pinimg.com/originals/30/99/af/3099aff4115ee20f43e3cdad04f59c48.png"
-          />
+          <LogoFbSmall />
           Log in with Facebook
         </a>
         <a href="#">Forget password?</a>
