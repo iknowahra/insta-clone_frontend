@@ -2,6 +2,7 @@ import React from 'react';
 import { useReactiveVar } from '@apollo/client';
 
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer, toast } from 'react-toastify';
 import styled, { ThemeProvider } from 'styled-components';
 import { HashRouter as Router } from 'react-router-dom';
