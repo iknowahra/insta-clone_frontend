@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import LogIn from './LoginPresenter';
 import SignUp from './SignupPresenter';
@@ -75,6 +76,9 @@ export default ({
 }) => {
   return (
     <Wrapper>
+      <Helmet>
+        <title>Login • Instagram</title>
+      </Helmet>
       <Form>
         <Logo>
           <LogoInsta />

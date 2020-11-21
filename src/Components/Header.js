@@ -4,6 +4,7 @@ import { gql, useQuery } from '@apollo/client';
 import { Link, withRouter } from 'react-router-dom';
 import Input from './Input';
 import useInput from '../Hooks/useInput';
+import { GET_MYPROFILE } from '../SharedQueries';
 import { Compass, HeartEmpty, User, Home, Airplain, LogoInsta } from './Icons';
 
 const Header = styled.header`
@@ -19,6 +20,7 @@ const Header = styled.header`
   justify-content: center;
   align-items: center;
   padding: 13px 0 3px 0;
+  z-index: 2;
 `;
 
 const HeaderWrapper = styled.div`
@@ -47,31 +49,26 @@ const HeaderColumn = styled.div`
 
 const SearchInput = styled(Input)`
   background-color: ${(props) => props.theme.bgColor};
-  padding: 5px;
+  padding: 5px 20px;
   font-size: 14px;
   border-radius: 3px;
   height: auto;
-  text-align: center;
   width: 70%;
   &::placeholder {
     opacity: 0.8;
     font-weight: 200;
+    text-align: center;
+  }
+  &:focus {
+    ::placeholder {
+      text-align: left;
+    }
   }
 `;
 
 const HeaderLink = styled(Link)`
   &:not(:last-child) {
     margin-right: 20px;
-  }
-`;
-
-const GET_MYPROFILE = gql`
-  query myProfile {
-    myProfile {
-      user {
-        userName
-      }
-    }
   }
 `;
 
@@ -97,7 +94,7 @@ const Component = ({ isLoggedIn, history }) => {
             </form>
           </HeaderColumn>
           <HeaderColumn>
-            <HeaderLink to="/home">
+            <HeaderLink to="/#">
               <Home />
             </HeaderLink>
             <HeaderLink to="/messages">
@@ -114,7 +111,9 @@ const Component = ({ isLoggedIn, history }) => {
                 <User />
               </HeaderLink>
             ) : (
-              <HeaderLink to={data.myProfile.user.userName}>
+              <HeaderLink
+                to={data ? `/profile/${data.myProfile.user.userName}` : '/#'}
+              >
                 <User />
               </HeaderLink>
             )}

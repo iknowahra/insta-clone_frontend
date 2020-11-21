@@ -10,7 +10,7 @@ const Footer = styled.footer`
   font-size: 12px;
   width: 100%;
   padding: 0 16px;
-  margin: 0px 0 52px;
+  margin: 50px 0 52px;
   top: 60px;
 `;
 
