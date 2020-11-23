@@ -1,7 +1,19 @@
 import { gql } from '@apollo/client';
 
-export default gql`
-  query search($term: String!) {
+export const SEARCH_USER = gql`
+  query searchUser($term: String!) {
+    searchUser(term: $term) {
+      avatar
+      userName
+      amIFollowing
+      itsMe
+      bio
+    }
+  }
+`;
+
+export const SEARCH_POST = gql`
+  query searchPost($term: String!) {
     searchPost(term: $term) {
       caption
       location
@@ -12,12 +24,6 @@ export default gql`
         url
       }
       likeCount
-    }
-    searchUser(term: $term) {
-      avatar
-      userName
-      amIFollowing
-      itsMe
     }
   }
 `;
