@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { isLogginVar, typeDefs } from './LocalState';
+import { isLogginVar, isSearchVar, typeDefs } from './LocalState';
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -8,6 +8,11 @@ const cache = new InMemoryCache({
         isLoggedIn: {
           read() {
             return isLogginVar();
+          },
+        },
+        isSearchOpen: {
+          read() {
+            return isSearchVar();
           },
         },
       },

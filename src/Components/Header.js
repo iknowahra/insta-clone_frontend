@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Link, withRouter } from 'react-router-dom';
 import Input from './Input';
-import useInput from '../Hooks/useInput';
+import SearchContainer from '../Routes/Search/Container';
+import useInput from '../Hooks/EnterInput';
 import { GET_MYPROFILE } from '../SharedQueries';
 import { Compass, HeartEmpty, User, Home, Airplain, LogoInsta } from './Icons';
 
@@ -45,6 +46,9 @@ const HeaderColumn = styled.div`
     margin-left: auto;
     text-align: right;
   }
+  &.searchTool {
+    position: relative;
+  }
 `;
 
 const SearchInput = styled(Input)`
@@ -77,8 +81,16 @@ const Component = ({ isLoggedIn, history }) => {
   const { data, loading } = useQuery(GET_MYPROFILE);
   const onSearchSubmit = (e) => {
     e.preventDefault();
-    history.push(`/search?term=${search.value}`);
+    const { keyCode } = e;
+    if (keyCode === 13) {
+      if (search.value[0] === '#') {
+        const term = search.value.slice(1);
+        history.push(`/search?term=${term}`);
+      }
+      search.setValue('');
+    }
   };
+
   return (
     isLoggedIn && (
       <Header>
@@ -88,9 +100,10 @@ const Component = ({ isLoggedIn, history }) => {
               <LogoInsta />
             </Link>
           </HeaderColumn>
-          <HeaderColumn>
+          <HeaderColumn className="searchTool">
             <form onSubmit={onSearchSubmit}>
               <SearchInput {...search} placeholder="🔍 Search" />
+              <SearchContainer term={search.value} setTerm={search.setValue} />
             </form>
           </HeaderColumn>
           <HeaderColumn>
