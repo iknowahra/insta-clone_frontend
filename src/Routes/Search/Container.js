@@ -1,13 +1,15 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
+import PropTypes from 'prop-types';
 import Presenter from './Presenter';
 import { SEARCH_USER } from './Queries';
 
-export default ({ term, setTerm }) => {
+const Container = ({ term, setTerm }) => {
   const { data, loading } = useQuery(SEARCH_USER, {
     skip: term === undefined || term[0] === '#',
     variables: { term },
   });
+
   return (
     <>
       {!loading && data && (
@@ -21,3 +23,10 @@ export default ({ term, setTerm }) => {
     </>
   );
 };
+
+Container.propTypes = {
+  term: PropTypes.string.isRequired,
+  setTerm: PropTypes.func.isRequired,
+};
+
+export default Container;
