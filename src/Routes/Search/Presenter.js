@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useReactiveVar } from '@apollo/client';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import DropDown from '../../Components/DropDown';
 import { isSearchVar } from '../../Apollo/LocalState';
 
@@ -41,7 +40,7 @@ const SearchConnect = styled.div`
   }
 `;
 
-const Presenter = ({ term, setTerm, users, loading }) => {
+export default ({ term, setTerm, users, loading }) => {
   const isSearchOpen = useReactiveVar(isSearchVar);
 
   useEffect(() => {
@@ -69,20 +68,3 @@ const Presenter = ({ term, setTerm, users, loading }) => {
     </>
   );
 };
-
-Presenter.propTypes = {
-  term: PropTypes.string,
-  setTerm: PropTypes.func,
-  users: PropTypes.arrayOf(
-    PropTypes.shape({
-      avatar: PropTypes.string,
-      userName: PropTypes.string.isRequired,
-      amIFollowing: PropTypes.bool.isRequired,
-      itsMe: PropTypes.bool.isRequired,
-      bio: PropTypes.string,
-    }),
-  ).isRequired,
-  loading: PropTypes.bool,
-};
-
-export default Presenter;

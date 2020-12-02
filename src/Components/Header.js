@@ -79,16 +79,14 @@ const HeaderLink = styled(Link)`
 const Component = ({ isLoggedIn, history }) => {
   const search = useInput('');
   const { data, loading } = useQuery(GET_MYPROFILE);
+
   const onSearchSubmit = (e) => {
     e.preventDefault();
-    const { keyCode } = e;
-    if (keyCode === 13) {
-      if (search.value[0] === '#') {
-        const term = search.value.slice(1);
-        history.push(`/search?term=${term}`);
-      }
-      search.setValue('');
+    if (search.value[0] === '#') {
+      const term = search.value.slice(1);
+      history.push(`/search?term=${term}`);
     }
+    search.setValue('');
   };
 
   return (

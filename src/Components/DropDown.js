@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useReactiveVar } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -47,7 +47,6 @@ const UserCardColumn = styled.div`
 
 export default ({ users, loading, setTerm }) => {
   const IsSearchOpen = useReactiveVar(isSearchVar);
-  console.log('***ddd', IsSearchOpen);
   return (
     <>
       {loading && <Loader />}
