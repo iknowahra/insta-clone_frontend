@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
+
+const MyImg = styled.img`
+  max-height: 450px;
+`;
 
 export default ({ files }) => {
   const [index, setIndex] = useState(0);
@@ -18,8 +23,8 @@ export default ({ files }) => {
           indicators={files.length > 1}
         >
           {files.map((file) => (
-            <Carousel.Item key={file.id}>
-              <img className="d-block w-100" src={file.url} alt={file.id} />
+            <Carousel.Item key={file.url}>
+              <MyImg className="d-block w-100" src={file.url} alt={file.id} />
             </Carousel.Item>
           ))}
         </Carousel>

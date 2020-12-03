@@ -14,12 +14,14 @@ const UNFOLLOW_USER = gql`
   }
 `;
 
-const FollowButton = ({ amIFollowing, id }) => {
+const FollowButton = ({ amIFollowing, id, size }) => {
   const [follow, setFollow] = useState(amIFollowing);
   const [followUser] = useMutation(FOLLOW_USER, {
     variables: { id },
   });
-  const [unfollowUser] = useMutation(UNFOLLOW_USER, { variables: { id } });
+  const [unfollowUser] = useMutation(UNFOLLOW_USER, {
+    variables: { id },
+  });
 
   const onClick = () => {
     if (follow) {
@@ -31,12 +33,19 @@ const FollowButton = ({ amIFollowing, id }) => {
     }
   };
 
-  return <Button text={follow ? 'Unfollow' : 'Follow'} onClick={onClick} />;
+  return (
+    <Button
+      text={follow ? 'Unfollow' : 'Follow'}
+      onClick={onClick}
+      size={size}
+    />
+  );
 };
 
 FollowButton.prototype = {
   id: PropTypes.number.isRequired,
   amIFollowing: PropTypes.bool.isRequired,
+  size: PropTypes.number,
 };
 
 export default FollowButton;
