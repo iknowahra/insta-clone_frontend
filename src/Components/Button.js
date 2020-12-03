@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Container = styled.button`
-  width: 100%;
+  width: ${(props) => (props.size ? `${props.size}px` : '100%')};
   border: 0;
   border-radius: ${(props) => props.theme.borderRadius};
   color: white;
@@ -14,12 +14,16 @@ const Container = styled.button`
   font-size: 14px;
 `;
 
-const Button = ({ text, onClick }) => (
-  <Container onClick={onClick}>{text}</Container>
+const Button = ({ text, onClick, size }) => (
+  <Container onClick={onClick} size={size}>
+    {text}
+  </Container>
 );
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  size: PropTypes.number,
 };
 
 export default Button;
