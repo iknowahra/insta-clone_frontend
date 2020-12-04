@@ -13,6 +13,7 @@ const FEED_QUERY = gql`
       likeCount
       amILiking
       createdAt
+      commentCount
       files {
         id
         url
@@ -22,6 +23,7 @@ const FEED_QUERY = gql`
         text
         userId
         userName
+        avatar
       }
       user {
         id
@@ -49,20 +51,23 @@ export default () => {
         {!loading &&
           data &&
           data.seeFeed &&
-          data.seeFeed.map((post) => (
-            <Post
-              key={post.id}
-              id={post.id}
-              location={post.location}
-              caption={post.caption}
-              user={post.user}
-              files={post.files}
-              likeCount={post.likeCount}
-              amILiking={post.amILiking}
-              comments={post.comments}
-              createdAt={post.createdAt}
-            />
-          ))}
+          data.seeFeed.map((post) => {
+            return (
+              <Post
+                key={post.id}
+                id={post.id}
+                location={post.location}
+                caption={post.caption}
+                user={post.user}
+                files={post.files}
+                likeCount={post.likeCount}
+                amILiking={post.amILiking}
+                comments={post.comments}
+                createdAt={post.createdAt}
+                commentCount={post.commentCount}
+              />
+            );
+          })}
       </Wrapper>
     </>
   );
