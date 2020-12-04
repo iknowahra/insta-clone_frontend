@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
 
 const MyImg = styled.img`
-  max-height: 450px;
+  width: auto;
+  height: ${(props) => (props.size === 'lg' ? '450px' : 'auto')};
 `;
 
-export default ({ files }) => {
+export default ({ files, size }) => {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
@@ -24,7 +25,12 @@ export default ({ files }) => {
         >
           {files.map((file) => (
             <Carousel.Item key={file.url}>
-              <MyImg className="d-block w-100" src={file.url} alt={file.id} />
+              <MyImg
+                className="d-block w-100"
+                src={file.url}
+                alt={file.id}
+                size={size}
+              />
             </Carousel.Item>
           ))}
         </Carousel>

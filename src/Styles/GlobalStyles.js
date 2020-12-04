@@ -18,6 +18,10 @@ export default createGlobalStyle`
         text-decoration: none;
         cursor: pointer;
     }
+    a:hover {
+        text-decoration: none;
+        color: inherit;
+    }
     button {
         cursor: pointer;
     }
