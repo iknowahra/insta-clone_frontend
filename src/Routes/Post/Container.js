@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useMutation } from '@apollo/client';
-import useInput from '../../Hooks/EnterInput';
 import Presenter from './Presenter';
-
-import { TOGGLE_LIKE, ADD_COMMENT } from './Queries';
 
 const Container = ({
   id,
@@ -17,71 +12,20 @@ const Container = ({
   amILiking,
   comments,
   createdAt,
+  commentCount,
 }) => {
-  const comment = useInput('');
-  const [amILikingS, setAmILiking] = useState(amILiking);
-  const [likeCountS, setLikeCount] = useState(likeCount);
-  const [commentS, setCommentS] = useState([...comments]);
-
-  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
-    variables: { postId: id },
-  });
-
-  const [addCommentMutation] = useMutation(ADD_COMMENT, {
-    variables: { postId: id, text: comment.value },
-  });
-
-  const onToggleLike = () => {
-    if (amILikingS) {
-      setAmILiking(!amILikingS);
-      setLikeCount(likeCountS - 1);
-    } else {
-      setAmILiking(!amILikingS);
-      setLikeCount(likeCountS + 1);
-    }
-    toggleLikeMutation();
-  };
-
-  const onSubmitComment = async (e) => {
-    e.preventDefault();
-    if (comment.value !== '') {
-      try {
-        const {
-          data: { addComment },
-        } = await addCommentMutation();
-        setCommentS([addComment, ...commentS]);
-      } catch {
-        toast.error('Cant send comment');
-      }
-    }
-  };
-
-  const onPressEnter = (e) => {
-    e.preventDefault();
-    const { keyCode } = e;
-    if (keyCode === 13) {
-      comment.setValue('');
-      onSubmitComment(e);
-    }
-  };
-
   return (
     <Presenter
       id={id}
       user={user}
-      files={files}
-      likeCount={likeCountS}
-      location={location}
       caption={caption}
-      amILiking={amILikingS}
-      comments={commentS}
+      location={location}
+      files={files}
+      comments={comments}
+      amILiking={amILiking}
+      likeCount={likeCount}
       createdAt={createdAt}
-      newComment={comment}
-      setAmILiking={setAmILiking}
-      setLikeCount={setLikeCount}
-      onToggleLike={onToggleLike}
-      onPressEnter={onPressEnter}
-      onSubmitComment={onSubmitComment}
+      commentCount={commentCount}
     />
   );
 };
@@ -112,6 +56,7 @@ Container.propTypes = {
     }),
   ).isRequired,
   createdAt: PropTypes.string.isRequired,
+  commentCount: PropTypes.number.isRequired,
 };
 
 export default Container;

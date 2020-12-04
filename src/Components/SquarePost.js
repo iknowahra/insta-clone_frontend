@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { HeartFull, CommentFull } from './Icons';
+import ModalFeed from './Modal';
+import { HeartFull, CommentFull, Photos } from './Icons';
 
 const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
@@ -17,13 +18,28 @@ const Overlay = styled.div`
   }
 `;
 
+const ManyPhotos = styled.span`
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+  }
+`;
+
 const Container = styled.div`
+  position: relative;
   background-image: url(${(props) => props.bg});
   background-size: cover;
   cursor: pointer;
   &:hover {
     ${Overlay} {
       opacity: 1;
+    }
+    ${ManyPhotos} {
+      opacity: 0;
     }
   }
 `;
@@ -42,25 +58,69 @@ const NumberText = styled.span`
   font-size: 16px;
 `;
 
-const SquarePost = ({ likeCount, commentCount, url }) => (
-  <Container bg={url}>
-    <Overlay>
-      <Number>
-        <HeartFull />
-        <NumberText>{likeCount}</NumberText>
-      </Number>
-      <Number>
-        <CommentFull />
-        <NumberText>{commentCount}</NumberText>
-      </Number>
-    </Overlay>
-  </Container>
-);
+const SquarePost = ({
+  id,
+  files,
+  user,
+  likeCount,
+  commentCount,
+  url,
+  fileCount,
+  comments,
+  caption,
+  amILiking,
+  createdAt,
+  location,
+}) => {
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+  return (
+    <Container bg={url}>
+      <ModalFeed
+        id={id}
+        show={showModal}
+        handleClose={handleClose}
+        files={files}
+        user={user}
+        caption={caption}
+        likeCount={likeCount}
+        amILiking={amILiking}
+        createdAt={createdAt}
+        comments={comments}
+        location={location}
+      />
+      <Overlay onClick={handleShow}>
+        <Number>
+          <HeartFull />
+          <NumberText>{likeCount}</NumberText>
+        </Number>
+        <Number>
+          <CommentFull />
+          <NumberText>{commentCount}</NumberText>
+        </Number>
+      </Overlay>
+      {fileCount && fileCount > 1 && (
+        <ManyPhotos>
+          <Photos />
+        </ManyPhotos>
+      )}
+    </Container>
+  );
+};
 
 SquarePost.propTypes = {
+  id: PropTypes.number,
   likeCount: PropTypes.number.isRequired,
   commentCount: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
+  fileCount: PropTypes.number,
+  files: PropTypes.array,
+  comments: PropTypes.array,
+  user: PropTypes.object,
+  caption: PropTypes.string.isRequired,
+  amILiking: PropTypes.bool.isRequired,
+  createdAt: PropTypes.string.isRequired,
 };
 
 export default SquarePost;

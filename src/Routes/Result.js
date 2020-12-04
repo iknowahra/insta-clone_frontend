@@ -5,15 +5,14 @@ import { withRouter } from 'react-router-dom';
 import { SEARCH_POST } from './Search/Queries';
 import FatText from '../Components/FatText';
 import Loader from '../Components/Loader';
-import { basicAvatarUrl } from '../Components/Icons';
+import { basicAvatarUrl, Photos } from '../Components/Icons';
 import SquarePost from '../Components/SquarePost';
 
 const Wrapper = styled.div`
   width: 100%;
   height: auto;
-  max-width: 600px;
   margin-bottom: 25px;
-  margin-left ; 10px;
+  margin-left: 10px;
   .postHeader {
     margin-bottom: 20px;
     color: ${(props) => props.theme.footerGreyColor};
@@ -33,11 +32,6 @@ const HeaderColumn = styled.div`
     border-radius: 50%;
     border: ${(props) => props.theme.boxBorder};
   }
-  h1 {
-    font-size: 28px;
-    font-weight: 400;
-    margin-bottom: 10px;
-  }
   .postCount {
     font-size: 16px;
     &:not(:last-child) {
@@ -46,6 +40,27 @@ const HeaderColumn = styled.div`
   }
   &:first-child {
     margin-right: 50px;
+  }
+`;
+
+const Head = styled.div`
+  font-size: 28px;
+  font-weight: 300;
+  margin-bottom: 10px;
+`;
+
+const NoPost = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  svg {
+    width: 80px;
+    height: 80px;
+    padding: 15px;
+    border: 3px solid black;
+    border-radius: 50%;
+    margin-bottom: 20px;
   }
 `;
 
@@ -88,13 +103,17 @@ export default withRouter(({ location: { search } }) => {
         <Wrapper>
           <Header>
             <HeaderColumn>
-              <img
-                src={data.searchPost[randomPick].files[0].url || basicAvatarUrl}
-                alt={data.searchPost[randomPick].caption || ''}
-              />
+              {data.searchPost.length === 0 ? (
+                <img src={basicAvatarUrl} alt="" />
+              ) : (
+                <img
+                  src={data.searchPost[randomPick].files[0].url}
+                  alt={data.searchPost[randomPick].caption}
+                />
+              )}
             </HeaderColumn>
             <HeaderColumn>
-              <h1># {term}</h1>
+              <Head># {term}</Head>
               {!loading && data && (
                 <>
                   <FatText
@@ -110,7 +129,10 @@ export default withRouter(({ location: { search } }) => {
           </Header>
 
           {data.searchPost.length === 0 ? (
-            <FatText text="No Posts Found" />
+            <NoPost>
+              <Photos />
+              <Head>No Posts Yet</Head>
+            </NoPost>
           ) : (
             <Main>
               <div className="postHeader">
