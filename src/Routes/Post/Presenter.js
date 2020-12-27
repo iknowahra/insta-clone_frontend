@@ -61,38 +61,40 @@ export default ({
   likeCount,
   commentCount,
   createdAt,
-}) => (
-  <Post>
-    <Header>
-      <HeaderColumn>
-        <Avatar size="sm" url={user.avatar} />
-        <UserColumn>
-          <Link to={`/profile/${user.userName}`}>
-            <FatText text={user.userName} />
-          </Link>
-          <Link to={`/search?term=${location.split(',')[0]}`}>
-            <Location>{location}</Location>
-          </Link>
-        </UserColumn>
-      </HeaderColumn>
-      <HeaderColumn>
-        <MoreOptions className="userMore" text="..." />
-      </HeaderColumn>
-    </Header>
-    <Files>
-      <FilePresenter files={files} />
-    </Files>
-    <CommentComponent
-      id={id}
-      user={user}
-      caption={caption}
-      likeCount={likeCount}
-      amILiking={amILiking}
-      comments={comments}
-      createdAt={createdAt}
-      location={location}
-      commentCount={commentCount}
-      files={files}
-    />
-  </Post>
-);
+}) => {
+  return (
+    <Post>
+      <Header>
+        <HeaderColumn>
+          <Avatar size="sm" url={user.avatar} />
+          <UserColumn>
+            <Link to={`/profile/${user.userName}`}>
+              <FatText text={user.userName} />
+            </Link>
+            <Link to={`/search?term=${location.split(',')[0]}`}>
+              <Location>{location}</Location>
+            </Link>
+          </UserColumn>
+        </HeaderColumn>
+        <HeaderColumn>
+          <MoreOptions className="userMore" text="..." />
+        </HeaderColumn>
+      </Header>
+      <Files>
+        <FilePresenter files={files} />
+      </Files>
+      <CommentComponent
+        id={id}
+        user={user}
+        caption={caption}
+        likeCount={likeCount}
+        amILiking={amILiking}
+        comments={comments}
+        createdAt={createdAt}
+        location={location}
+        commentCount={commentCount}
+        files={files}
+      />
+    </Post>
+  );
+};

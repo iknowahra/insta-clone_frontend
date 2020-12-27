@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { isLogginVar } from '../../Apollo/LocalState';
+import Button from '../../Components/Button';
 import FollowButton from '../../Components/FollowButton';
 import SquarePost from '../../Components/SquarePost';
 import Loader from '../../Components/Loader';
@@ -104,79 +106,84 @@ const PostSection = styled(Selector)`
   grid-auto-rows: 290px;
 `;
 
-export default ({ data, loading }) => (
-  <Wrapper>
-    {loading && <Loader />}
-    {!loading && data.seeUser && (
-      <>
-        <Header>
-          <HeaderColumn>
-            <img
-              src={data.seeUser.user.avatar}
-              alt={data.seeUser.user.userName}
-            />
-          </HeaderColumn>
-          <HeaderColumn>
-            <User>
-              <Head>{data.seeUser.user.userName}</Head>
-              {!data.seeUser.user.itsMe && (
-                <FollowButton
-                  amIFollowing={data.seeUser.user.amIFollowing}
-                  id={data.seeUser.user.id}
-                  size={96}
-                />
-              )}
-            </User>
+export default ({ data, loading, onLogOut }) => {
+  return (
+    <Wrapper>
+      {loading && <Loader />}
+      {!loading && data.seeUser && (
+        <>
+          <Header>
+            <HeaderColumn>
+              <img
+                src={data.seeUser.user.avatar}
+                alt={data.seeUser.user.userName}
+              />
+            </HeaderColumn>
+            <HeaderColumn>
+              <User>
+                <Head>{data.seeUser.user.userName}</Head>
+                {!data.seeUser.user.itsMe && (
+                  <FollowButton
+                    amIFollowing={data.seeUser.user.amIFollowing}
+                    id={data.seeUser.user.id}
+                    size={96}
+                  />
+                )}
+                {data.seeUser.user.itsMe && (
+                  <Button text="Log out" onClick={onLogOut} />
+                )}
+              </User>
 
-            <Count>
-              <CountColumn>
-                <FatText text={`${data.seeUser.user.postCount}`} />
-                <CountUnit>posts</CountUnit>
-              </CountColumn>
-              <CountColumn>
-                <FatText text={`${data.seeUser.user.followersCount}`} />
-                <CountUnit>followers</CountUnit>
-              </CountColumn>
-              <CountColumn>
-                <FatText text={`${data.seeUser.user.followingCount}`} />
-                <CountUnit>following</CountUnit>
-              </CountColumn>
-            </Count>
-            <Detail>
-              <FatText text={data.seeUser.user.fullName} />
-              <Bio>{data.seeUser.user.bio}</Bio>
-            </Detail>
-          </HeaderColumn>
-        </Header>
-        <Main>
-          {data.seeUser.posts && data.seeUser.posts.length === 0 ? (
-            <NoPost>
-              <Photos />
-              <Head>No Posts Yet</Head>
-            </NoPost>
-          ) : (
-            <PostSection>
-              {data.seeUser.posts.map((post) => (
-                <SquarePost
-                  id={post.id}
-                  user={data.seeUser.user}
-                  key={post.caption + post.likeCount}
-                  fileCount={post.fileCount}
-                  likeCount={post.likeCount}
-                  commentCount={post.commentCount}
-                  comments={post.comments}
-                  files={post.files}
-                  url={post.files[0].url}
-                  caption={post.caption}
-                  amILiking={post.amILiking}
-                  createdAt={post.createdAt}
-                  location={post.location}
-                />
-              ))}
-            </PostSection>
-          )}
-        </Main>
-      </>
-    )}
-  </Wrapper>
-);
+              <Count>
+                <CountColumn>
+                  <FatText text={`${data.seeUser.user.postCount}`} />
+                  <CountUnit>posts</CountUnit>
+                </CountColumn>
+                <CountColumn>
+                  <FatText text={`${data.seeUser.user.followersCount}`} />
+                  <CountUnit>followers</CountUnit>
+                </CountColumn>
+                <CountColumn>
+                  <FatText text={`${data.seeUser.user.followingCount}`} />
+                  <CountUnit>following</CountUnit>
+                </CountColumn>
+              </Count>
+              <Detail>
+                <FatText text={data.seeUser.user.fullName} />
+                <Bio>{data.seeUser.user.bio}</Bio>
+              </Detail>
+            </HeaderColumn>
+          </Header>
+          <Main>
+            {data.seeUser.posts && data.seeUser.posts.length === 0 ? (
+              <NoPost>
+                <Photos />
+                <Head>No Posts Yet</Head>
+              </NoPost>
+            ) : (
+              <PostSection>
+                {data.seeUser.posts.map((post) => (
+                  <SquarePost
+                    id={post.id}
+                    user={data.seeUser.user}
+                    key={post.caption + post.likeCount}
+                    fileCount={post.fileCount}
+                    likeCount={post.likeCount}
+                    commentCount={post.commentCount}
+                    comments={post.comments}
+                    files={post.files}
+                    url={post.files[0].url}
+                    caption={post.caption}
+                    amILiking={post.amILiking}
+                    createdAt={post.createdAt}
+                    location={post.location}
+                  />
+                ))}
+              </PostSection>
+            )}
+          </Main>
+        </>
+      )}
+    </Wrapper>
+  );
+};

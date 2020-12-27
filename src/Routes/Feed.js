@@ -54,7 +54,7 @@ export default () => {
           data.seeFeed.map((post) => {
             return (
               <Post
-                key={post.id}
+                key={post.id + post.createdAt}
                 id={post.id}
                 location={post.location}
                 caption={post.caption}

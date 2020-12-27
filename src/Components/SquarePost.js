@@ -111,6 +111,7 @@ const SquarePost = ({
 
 SquarePost.propTypes = {
   id: PropTypes.number,
+  location: PropTypes.string,
   likeCount: PropTypes.number.isRequired,
   commentCount: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
