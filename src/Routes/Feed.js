@@ -42,7 +42,7 @@ const Wrapper = styled.div`
 `;
 
 export default () => {
-  const { data, loading } = useQuery(FEED_QUERY);
+  const { data, loading } = useQuery(FEED_QUERY, { pollInterval: 300 });
 
   return (
     <>

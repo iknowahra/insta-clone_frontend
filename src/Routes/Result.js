@@ -121,14 +121,14 @@ export default withRouter(({ location: { search } }) => {
                     className="postCount"
                   />
                   <span className="postCount">
-                    {data.searchPost.length > 1 ? `posts` : 'post'}
+                    {data?.searchPost?.length > 1 ? `posts` : 'post'}
                   </span>
                 </>
               )}
             </HeaderColumn>
           </Header>
 
-          {data.searchPost.length === 0 ? (
+          {data?.searchPost?.length === 0 ? (
             <NoPost>
               <Photos />
               <Head>No Posts Yet</Head>
@@ -139,11 +139,12 @@ export default withRouter(({ location: { search } }) => {
                 <FatText text="Most Recent" />
               </div>
               <PostSection>
-                {data.searchPost.reverse().map((post, index) => {
+                {data?.searchPost?.map((post, index) => {
                   if (index < 10) {
                     return (
                       <SquarePost
                         key={post.id + post.likeCount}
+                        {...post}
                         likeCount={post.likeCount}
                         commentCount={post.commentCount}
                         url={post.files[0].url}
@@ -156,11 +157,12 @@ export default withRouter(({ location: { search } }) => {
                     <div className="postHeader">
                       <FatText text="Top Posts" />
                     </div>
-                    {data.searchPost.reverse().map((post, index) => {
+                    {data.searchPost?.map((post, index) => {
                       if (index >= 10) {
                         return (
                           <SquarePost
                             key={post.id + post.likeCount}
+                            {...post}
                             likeCount={post.likeCount}
                             commentCount={post.commentCount}
                             url={post.files[0].url}
