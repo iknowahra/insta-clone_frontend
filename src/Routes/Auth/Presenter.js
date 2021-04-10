@@ -73,6 +73,7 @@ export default ({
   onSignup,
   onConfirm,
   onSendEmail,
+  responseFacebook,
 }) => {
   return (
     <Wrapper>
@@ -100,6 +101,7 @@ export default ({
             onLogin={onLogin}
             onConfirm={onConfirm}
             action={action}
+            responseFacebook={responseFacebook}
           />
         )}
       </Form>
