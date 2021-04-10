@@ -22,3 +22,11 @@ export const IS_SEACH_OPEN = gql`
 `;
 
 export const isSearchVar = makeVar(false);
+
+export const GET_USER_NAME = gql`
+  query getUserName {
+    getUserName @client
+  }
+`;
+
+export const getUserNameVar = makeVar('');
