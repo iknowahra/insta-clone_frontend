@@ -9,13 +9,15 @@ import {
 import Auth from '../Routes/Auth/index';
 import Search from '../Routes/Result';
 import Feed from '../Routes/Feed';
-import Explore from '../Routes/Explore';
+import Message from '../Routes/Message/index';
+import Explore from '../Routes/Explore/index';
 import Profile from '../Routes/Profile/index';
 
 const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Feed} />
     <Route path="/explore" component={Explore} />
+    <Route path="/message" component={Message} />
     <Route path="/search" component={Search} />
     <Route path="/profile/:username" component={Profile} />
     <Redirect from="*" to="/" />

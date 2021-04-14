@@ -66,7 +66,13 @@ export default ({
     <Post>
       <Header>
         <HeaderColumn>
-          <Avatar size="sm" url={user.avatar} />
+          <Avatar
+            size="sm"
+            url={
+              user.avatar ||
+              'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1'
+            }
+          />
           <UserColumn>
             <Link to={`/profile/${user.userName}`}>
               <FatText text={user.userName} />
@@ -81,7 +87,7 @@ export default ({
         </HeaderColumn>
       </Header>
       <Files>
-        <FilePresenter files={files} />
+        <FilePresenter files={files} size="lg" />
       </Files>
       <CommentComponent
         id={id}

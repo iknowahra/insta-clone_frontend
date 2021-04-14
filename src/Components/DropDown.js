@@ -71,7 +71,9 @@ export default ({ users, loading, setTerm }) => {
               </UserCardColumn>
               <UserCardColumn>
                 <FatText className="username" text={user.userName} />
-                {user.bio}
+                {`${user.bio.slice(0, 20)}${
+                  user.bio.length >= 20 ? '...' : ''
+                }`}
               </UserCardColumn>
             </UserCard>
           </Wrapper>

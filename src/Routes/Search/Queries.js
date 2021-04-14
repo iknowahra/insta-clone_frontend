@@ -26,12 +26,16 @@ export const SEARCH_USER = gql`
 export const SEARCH_POST = gql`
   query searchPost($term: String!) {
     searchPost(term: $term) {
+      id
       caption
       location
       user {
+        id
         userName
+        avatar
       }
       files {
+        id
         url
       }
       likeCount

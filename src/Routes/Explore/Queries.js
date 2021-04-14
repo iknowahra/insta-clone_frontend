@@ -1,0 +1,79 @@
+import { gql } from '@apollo/client';
+
+export const CORE_USER_FIELDS = gql`
+  fragment CoreUserFields on User {
+    id
+    userName
+    avatar
+    itsMe
+    name
+  }
+`;
+
+export const CORE_COMMENT_FIELDS = gql`
+  fragment CoreCommentFields on Comment {
+    id
+    text
+    userId
+    userName
+    avatar
+    createdAt
+  }
+`;
+
+export const FULL_POST_FIELDS = gql`
+  fragment FullPostFields on Post {
+    id
+    location
+    caption
+    likeCount
+    amILiking
+    fileCount
+    createdAt
+    updatedAt
+    commentCount
+    files {
+      id
+      url
+    }
+    comments {
+      ...CoreCommentFields
+    }
+  }
+  ${CORE_COMMENT_FIELDS}
+`;
+
+export const FULL_USER_FIELDS = gql`
+  fragment FullUserFields on User {
+    ...CoreUserFields
+    amIFollowing
+    bio
+    followersCount
+    followingCount
+    postCount
+    followers {
+      ...CoreUserFields
+    }
+    following {
+      ...CoreUserFields
+    }
+  }
+  ${CORE_USER_FIELDS}
+`;
+
+export const GET_RANDOMFEED = gql`
+  query seeRandomFeed {
+    seeRandomFeed {
+      ...FullPostFields
+      comments {
+        ...CoreCommentFields
+      }
+      user {
+        ...CoreUserFields
+      }
+    }
+  }
+  ${CORE_USER_FIELDS}
+  ${CORE_COMMENT_FIELDS}
+  ${FULL_POST_FIELDS}
+`;

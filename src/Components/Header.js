@@ -108,7 +108,7 @@ const Component = ({ isLoggedIn, history }) => {
             <HeaderLink to="/#">
               <Home />
             </HeaderLink>
-            <HeaderLink to="/messages">
+            <HeaderLink to="/message">
               <Airplain />
             </HeaderLink>
             <HeaderLink to="/explore">

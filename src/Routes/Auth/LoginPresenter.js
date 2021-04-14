@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 
@@ -50,7 +50,15 @@ const Line = styled.div`
   top: 8px;
 `;
 
-export default ({ email, password, secret, onLogin, onConfirm, action }) => {
+export default ({
+  email,
+  password,
+  secret,
+  onLogin,
+  onConfirm,
+  action,
+  responseFacebook,
+}) => {
   return action === 'confirm' ? (
     <>
       <form onSubmit={onConfirm}>
@@ -66,15 +74,24 @@ export default ({ email, password, secret, onLogin, onConfirm, action }) => {
         <Input placeholder="Password" {...password} type="password" />
         <Button text="Log In" />
       </form>
-      <Facebook>
-        <Line />
-        <Or>or</Or>
-        <a href="#">
-          <LogoFbSmall />
-          Log in with Facebook
-        </a>
-        <a href="#">Forget password?</a>
-      </Facebook>
+      <FacebookLogin
+        appId="253692292993280"
+        autoLoad
+        fields="name,email,picture"
+        scope="public_profile"
+        callback={(response) => responseFacebook(response)}
+        render={(renderProps) => (
+          <Facebook>
+            <Line />
+            <Or>or</Or>
+            <a href="#" onClick={renderProps.onClick}>
+              <LogoFbSmall />
+              Log in with Facebook
+            </a>
+            <a href="#">Forget password?</a>
+          </Facebook>
+        )}
+      />
     </>
   );
 };

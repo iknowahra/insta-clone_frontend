@@ -1,13 +1,26 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useMutation } from '@apollo/client';
+import { useMutation, useLazyQuery } from '@apollo/client';
 import { isLogginVar } from '../../Apollo/LocalState';
 import Presenter from './Presenter';
 import useInput from '../../Hooks/useInput';
-import { CONFIRM_SECRET, LOG_IN, REQUEST_SECRET, SIGN_UP } from './Queries';
+import {
+  CONFIRM_SECRET,
+  LOG_IN,
+  REQUEST_SECRET,
+  SIGN_UP,
+  CHECK_USER,
+  LOG_IN_FB,
+} from './Queries';
 
 export default () => {
   const [action, setAction] = useState('logIn');
+  const [fbData, setFbData] = useState({});
+  const [createFbAccount] = useMutation(SIGN_UP);
+  const [loginFbMutation] = useMutation(LOG_IN_FB);
+  const [checkUserValidationQuery, { data }] = useLazyQuery(CHECK_USER, {
+    fetchPolicy: 'no-cache',
+  });
 
   const username = useInput('');
   const firstName = useInput('');
@@ -15,6 +28,24 @@ export default () => {
   const email = useInput('');
   const password = useInput('');
   const secret = useInput('');
+
+  const onCheckNewAccount = async (value) => {
+    checkUserValidationQuery({
+      variables: { email: value },
+    });
+    if (data?.checkUser) {
+      const { checkUser } = data;
+      if (!checkUser.ok) {
+        if (checkUser.error === 'Taken') {
+          return false;
+        }
+        console.log('checkUserError', checkUser.error);
+        toast.error(`Sorry for the Error : ${checkUser.error}`);
+        return null;
+      }
+      return true;
+    }
+  };
 
   const [requestSecretMutation] = useMutation(REQUEST_SECRET, {
     update: (_, { data }) => {
@@ -27,13 +58,11 @@ export default () => {
     },
     variables: {
       email: email.value,
-      userName: username.value,
     },
   });
 
   const [confirmSecretMutation] = useMutation(CONFIRM_SECRET, {
-    update: (_, { data }) => {
-      const { confirmSecret } = data;
+    update: (_, { data: { confirmSecret } }) => {
       if (!confirmSecret.ok) {
         toast.error(confirmSecret.error);
       } else {
@@ -82,13 +111,6 @@ export default () => {
         setTimeout(() => setAction('logIn'), 3000);
       }
     },
-    variables: {
-      email: email.value,
-      userName: username.value,
-      firstName: firstName.value,
-      lastName: lastName.value,
-      password: password.value,
-    },
   });
 
   const onLogin = (e) => {
@@ -102,15 +124,18 @@ export default () => {
 
   const onSignup = (e) => {
     e.preventDefault();
-    if (
-      email.value !== '' &&
-      username.value !== '' &&
-      firstName.value !== '' &&
-      lastName.value !== ''
-    ) {
-      createAccountMutation();
+    if (email.value !== '' && username.value !== '') {
+      createAccountMutation({
+        variables: {
+          email: email.value,
+          userName: username.value,
+          firstName: firstName.value,
+          lastName: lastName.value,
+          password: password.value,
+        },
+      });
     } else {
-      toast.error('All field are required');
+      toast.error('Email and Username field are required');
     }
   };
 
@@ -127,6 +152,51 @@ export default () => {
     requestSecretMutation();
   };
 
+  const responseFacebook = async (response) => {
+    setFbData(response);
+    await fbLoginProcess(response);
+  };
+
+  const fbLoginProcess = async (process) => {
+    if (process.accessToken) {
+      console.log('token', process.email);
+      localStorage.setItem('FBtoken', process.accessToken);
+      const { email: fbEmail, name, id: facebookId, picture } = process;
+      const isNewUser = await onCheckNewAccount(fbEmail);
+      console.log('isNewUser,', isNewUser);
+      if (isNewUser) {
+        createFbAccount({
+          variables: {
+            email: fbEmail,
+            name,
+            avatar: picture.data.uri,
+            facebookId,
+            userName: name + facebookId.slice(0, 4),
+          },
+        });
+      } else {
+        const {
+          data: { loginFb },
+        } = await loginFbMutation({
+          variables: {
+            email: fbEmail,
+            facebookId,
+          },
+        });
+        if (loginFb.error) {
+          toast.error(`Error : ${loginFb.error}`);
+        } else {
+          localStorage.setItem('token', loginFb.token);
+          setTimeout(() => isLogginVar(!!localStorage.getItem('token')), 3000);
+        }
+      }
+    } else {
+      toast.error('Facebook log in failed.');
+    }
+  };
+
+  // console.log(JSON.parse(fbData));
+
   return (
     <Presenter
       setAction={setAction}
@@ -141,6 +211,7 @@ export default () => {
       onSignup={onSignup}
       onConfirm={onConfirm}
       onSendEmail={onSendEmail}
+      responseFacebook={responseFacebook}
     />
   );
 };

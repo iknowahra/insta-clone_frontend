@@ -15,12 +15,13 @@ const Container = ({
   caption,
   likeCount,
   amILiking,
-  comments,
+  comments = [],
   createdAt,
   commentCount,
   location,
-  files,
+  files = [],
 }) => {
+  console.log('id', id);
   const comment = useInput('');
   const [amILikingS, setAmILiking] = useState(amILiking);
   const [commentCountS, setCommentCount] = useState(commentCount);

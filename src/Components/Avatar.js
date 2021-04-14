@@ -24,7 +24,10 @@ const Container = styled.div`
   border-radius: 50%;
 `;
 
-const Avatar = ({ size = 'sm', url }) => <Container size={size} url={url} />;
+const Avatar = ({
+  size = 'sm',
+  url = 'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1',
+}) => <Container size={size} url={url} />;
 
 Avatar.propTypes = {
   size: PropTypes.oneOf(['sm', 'md', 'lg']),

@@ -110,12 +110,15 @@ export default ({ data, loading, onLogOut }) => {
   return (
     <Wrapper>
       {loading && <Loader />}
-      {!loading && data.seeUser && (
+      {!loading && data?.seeUser && (
         <>
           <Header>
             <HeaderColumn>
               <img
-                src={data.seeUser.user.avatar}
+                src={
+                  data.seeUser.user.avatar ||
+                  'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1'
+                }
                 alt={data.seeUser.user.userName}
               />
             </HeaderColumn>

@@ -15,10 +15,18 @@ const Button = styled.span`
 
 const Meta = styled.div`
   display: flex;
+  position: relative;
+  height: 420px;
   flex-direction: column;
   .likecountClass {
     margin-bottom: 5px;
   }
+`;
+
+const CommentsList = styled.div`
+  display: flex;
+  height: 90%;
+  flex-direction: column;
 `;
 
 const Buttons = styled.div`
@@ -48,7 +56,7 @@ const Timestamp = styled.span`
 
 const CommentInputarea = styled.form`
   display: flex;
-  padding: 8px 0;
+  padding: 10px 0;
   opacity: 0.6;
   &:focus-within {
     opacity: 1;
@@ -59,7 +67,7 @@ const Textarea = styled(TextareaAutosize)`
   align-items: flex-start;
   border: none;
   width: 100%;
-  max-height: 42px;
+  max-height: 30px;
   resize: none;
   font-size: 14px;
   &:focus {
@@ -70,25 +78,21 @@ const Textarea = styled(TextareaAutosize)`
 
 const PostLink = styled.a``;
 
-const ViewComment = styled.div`
-  position: relative;
-  display: flex;
-  height: 75%;
-  flex-direction: column;
-`;
-
 const InputComment = styled.footer`
+  position: absolute;
   bottom: 0px;
   left: 0;
   width: 100%;
-  height: 25%;
+  height: 30%;
   margin-top: 3px;
   padding: 3px 0;
   border-top: ${(props) => props.theme.boxBorder};
 `;
 
 const Comments = styled.ul`
-  max-width: 240px;
+  border: black 1px;
+  max-width: 250px;
+
   line-height: 130%;
   .usernameClass {
     margin-right: 5px;
@@ -97,8 +101,8 @@ const Comments = styled.ul`
     margin: 10px 0;
   }
   &.yourComment {
-    height: 230px;
-    max-height: 230px;
+    height: 250px;
+    max-height: 250px;
     overflow-x: hidden;
     overflow-y: auto;
   }
@@ -109,7 +113,7 @@ const Comment = styled.li`
 `;
 
 export default ({
-  user: { userName, avatar },
+  user,
   caption,
   comments,
   amILiking,
@@ -122,26 +126,26 @@ export default ({
 }) => {
   return (
     <Meta>
-      <Comments>
-        <Comment className="myComment">
-          <FatText className="usernameClass" text={userName} />
-          {caption}
-        </Comment>
-      </Comments>
-      <Comments className="yourComment">
-        {comments &&
-          comments.map((comment, index) => (
-            <>
-              <Comment key={index}>
-                <FatText className="usernameClass" text={comment.userName} />
-                {comment.text}
-              </Comment>
-              <Timestamp className="commentTimestamp">
-                {comment.createdAt}
-              </Timestamp>
-            </>
-          ))}
-      </Comments>
+      <CommentsList>
+        <Comments className="yourComment">
+          <Comment className="myComment">
+            <FatText className="usernameClass" text={user?.userName} />
+            {caption}
+          </Comment>
+          {comments &&
+            comments.map((comment, index) => (
+              <>
+                <Comment key={index}>
+                  <FatText className="usernameClass" text={comment.userName} />
+                  {comment.text}
+                </Comment>
+                <Timestamp className="commentTimestamp">
+                  {comment.createdAt}
+                </Timestamp>
+              </>
+            ))}
+        </Comments>
+      </CommentsList>
       <InputComment>
         <Buttons>
           <Button onClick={onToggleLike}>

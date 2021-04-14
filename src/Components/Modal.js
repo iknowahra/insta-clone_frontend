@@ -114,12 +114,18 @@ export default ({
               <MyCol className="commentZone" xs={6} md={4}>
                 <Header>
                   <HeaderColumn onClick={handleClose}>
-                    <Avatar size="sm" url={user.avatar} />
+                    <Avatar
+                      size="sm"
+                      url={
+                        user?.avatar ||
+                        'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1'
+                      }
+                    />
                     <UserColumn onClick={handleClose}>
-                      <Link to={`/profile/${user.userName}`}>
-                        <FatText text={user.userName} />
+                      <Link to={`/profile/${user?.userName}`}>
+                        <FatText text={user?.userName} />
                       </Link>
-                      <Link to={`/search?term=${location.split(',')[0]}`}>
+                      <Link to={`/search?term=${location?.split(',')[0]}`}>
                         <Location>{location}</Location>
                       </Link>
                     </UserColumn>

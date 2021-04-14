@@ -1,5 +1,55 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { isLogginVar, isSearchVar, typeDefs } from './LocalState';
+import {
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+  split,
+} from '@apollo/client';
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { setContext } from '@apollo/client/link/context';
+
+import {
+  isLogginVar,
+  isSearchVar,
+  getUserNameVar,
+  typeDefs,
+} from './LocalState';
+
+const httpLink = createHttpLink({
+  uri: 'https://ahrastargram.herokuapp.com/graphql',
+});
+const wsLink = new WebSocketLink({
+  uri: 'ws://ahrastargram.herokuapp.com/subscriptions',
+  options: {
+    reconnect: true,
+    connectionParams: {
+      authToken: localStorage.getItem('token') || '',
+    },
+  },
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('token');
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  authLink.concat(httpLink),
+);
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -15,6 +65,11 @@ const cache = new InMemoryCache({
             return isSearchVar();
           },
         },
+        getUserName: {
+          read() {
+            return getUserNameVar();
+          },
+        },
       },
     },
   },
@@ -22,9 +77,6 @@ const cache = new InMemoryCache({
 
 export default new ApolloClient({
   cache,
-  uri: 'http://localhost:5000/graphql',
-  headers: {
-    authorization: `Bearer ${localStorage.getItem('token')}`,
-  },
+  link: splitLink,
   typeDefs,
 });

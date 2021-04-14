@@ -8,6 +8,7 @@ export default {
   blackColor: '#262626',
   darkGreyColor: '#999',
   lightGreyColor: '#c7c7c7',
+  veryLightGreyColor: '#F5F5F5',
   footerGreyColor: '#8E8E8E',
   visitedColor: '#00376b',
   blueColor: '#0095f6',
