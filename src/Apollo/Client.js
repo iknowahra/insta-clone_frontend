@@ -16,10 +16,10 @@ import {
 } from './LocalState';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: 'https://ahrastargram.herokuapp.com/graphql',
 });
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:5000/subscriptions',
+  uri: 'ws://ahrastargram.herokuapp.com/subscriptions',
   options: {
     reconnect: true,
     connectionParams: {
