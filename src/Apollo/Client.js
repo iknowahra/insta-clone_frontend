@@ -19,7 +19,7 @@ const httpLink = createHttpLink({
   uri: 'https://ahrastargram.herokuapp.com/graphql',
 });
 const wsLink = new WebSocketLink({
-  uri: 'ws://ahrastargram.herokuapp.com/subscriptions',
+  uri: 'wss://ahrastargram.herokuapp.com/subscriptions',
   options: {
     reconnect: true,
     connectionParams: {
