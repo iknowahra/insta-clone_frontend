@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
-
 import { LogoFbSmall } from '../../Components/Icons';
 
 const Facebook = styled.div`
@@ -75,10 +74,10 @@ export default ({
         <Button text="Log In" />
       </form>
       <FacebookLogin
-        appId="253692292993280"
+        appId="250653766733527"
         autoLoad
         fields="name,email,picture"
-        scope="public_profile"
+        scope="public_profile,email"
         callback={(response) => responseFacebook(response)}
         render={(renderProps) => (
           <Facebook>

@@ -76,10 +76,10 @@ export default ({
       <Intro>
         <p>Sign up to see photos and videos from your friends.</p>
         <FacebookLogin
-          appId="253692292993280"
+          appId="250653766733527"
           autoLoad
           fields="name,email,picture"
-          scope="public_profile"
+          scope="public_profile,email"
           callback={(response) => responseFacebook(response)}
           render={(renderProps) => (
             <Button text="Log in with Facebook" onClick={renderProps.onClick} />
