@@ -84,8 +84,9 @@ export default ({
         <Logo>
           <LogoInsta />
         </Logo>
-        {action === 'signUp' ? (
+        {action === 'signUp' || action === 'signUpFb' ? (
           <SignUp
+            action={action}
             email={email}
             password={password}
             username={username}

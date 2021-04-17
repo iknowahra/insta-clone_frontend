@@ -61,6 +61,7 @@ const Guide = styled.p`
 `;
 
 export default ({
+  action,
   username,
   firstName,
   lastName,
@@ -76,15 +77,25 @@ export default ({
         <Line />
         <Or>or</Or>
       </Intro>
+      {action === 'signUp' && (
+        <form onSubmit={onSignup}>
+          <Input placeholder="Email" {...email} type="email" />
+          <Input placeholder="First name" {...firstName} />
+          <Input placeholder="Last name" {...lastName} />
+          <Input placeholder="Username" {...username} />
+          <Input placeholder="Password" {...password} type="password" />
+          <Button text="Sign up" />
+        </form>
+      )}
+      {action === 'signUpFb' && (
+        <form onSubmit={onSignup}>
+          <Input placeholder="First name" {...firstName} />
+          <Input placeholder="Last name" {...lastName} />
+          <Input placeholder="Username" {...username} />
+          <Button text="Sign up" />
+        </form>
+      )}
 
-      <form onSubmit={onSignup}>
-        <Input placeholder="Email" {...email} type="email" />
-        <Input placeholder="First name" {...firstName} />
-        <Input placeholder="Last name" {...lastName} />
-        <Input placeholder="Username" {...username} />
-        <Input placeholder="Password" {...password} type="password" />
-        <Button text="Sign up" />
-      </form>
       <Guide>
         {`By signing up, you agree to our `}
         <a href="#">Terms, Data Policy and Cookies Policy</a>.
