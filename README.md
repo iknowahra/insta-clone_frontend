@@ -12,15 +12,18 @@ This repository is for cloning an instagram web application.
 
 3. It can provide **search** tools to find users and posting.
 
+
 4. You can **follow/unfollow** interesting users.
 
-![home](/Users/mac/Desktop/codestates/insta-clone_frontend/demo/home.gif)
+
+<img src="demo/home.gif" alt="home page demo" style="zoom:50%;" />
+
 
 ## Message
 
 You can send your friends direct messages on real-time. It auto-scrolls when you enter a message room to make it easier to check the latest message.
 
-![message](/Users/mac/Desktop/codestates/insta-clone_frontend/demo/message.gif)
+<img src="demo/message.gif" alt="home page demo" style="zoom:50%;" />
 
 ## Usage
 
