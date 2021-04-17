@@ -1,33 +1,29 @@
 # instagram clone (web)
 
-This repository is for cloning an instagram web application. 
+This repository is for cloning an instagram web application.
 
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e431b8a5-c4a9-4169-b7ed-d696d0c39623/deploy-status)](https://app.netlify.com/sites/ahrastargram/deploys)
 
 ## Main Functions
 
-1) It can see your friends' photso with an **awesome slider**.
+1. It can see your friends' photso with an **awesome slider**.
 
-2) You can **comment your idea** and show **your like** on your friend's posting.
+2. You can **comment your idea** and show **your like** on your friend's posting.
 
-3) It can provide **search** tools to find users and posting.
+3. It can provide **search** tools to find users and posting.
 
-4) You can **follow/unfollow** interesting users.
+
+4. You can **follow/unfollow** interesting users.
 
 
 <img src="demo/home.gif" alt="home page demo" style="zoom:50%;" />
-
-
 
 
 ## Message
 
 You can send your friends direct messages on real-time. It auto-scrolls when you enter a message room to make it easier to check the latest message.
 
-
 <img src="demo/message.gif" alt="home page demo" style="zoom:50%;" />
-
-
 
 ## Usage
 
@@ -41,13 +37,11 @@ After you clone this repo to your desktop, go to its root directory and run `npm
 
 Once the dependencies are installed, you can run `npm start` to start the application.
 
-
-
 ## Feedback
 
 ### Development
 
-Want to contribute? Great! 
+Want to contribute? Great!
 
 To fix a bug or enhance an existing module, follow these steps:
 
