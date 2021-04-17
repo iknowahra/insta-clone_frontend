@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import styled from 'styled-components';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
@@ -68,12 +69,22 @@ export default ({
   email,
   password,
   onSignup,
+  responseFacebook,
 }) => {
   return (
     <>
       <Intro>
         <p>Sign up to see photos and videos from your friends.</p>
-        <Button text="Log in with Facebook" />
+        <FacebookLogin
+          appId="253692292993280"
+          autoLoad
+          fields="name,email,picture"
+          scope="public_profile"
+          callback={(response) => responseFacebook(response)}
+          render={(renderProps) => (
+            <Button text="Log in with Facebook" onClick={renderProps.onClick} />
+          )}
+        />
         <Line />
         <Or>or</Or>
       </Intro>

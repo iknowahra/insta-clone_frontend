@@ -93,6 +93,7 @@ export default ({
             firstName={firstName}
             lastName={lastName}
             onSignup={onSignup}
+            responseFacebook={responseFacebook}
           />
         ) : (
           <LogIn
