@@ -46,7 +46,6 @@ const Location = styled.span`
 `;
 
 const Files = styled.div`
-  max-height: 500px;
   overflow: hidden;
 `;
 

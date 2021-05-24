@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
+import * as timeago from 'timeago.js';
 import FatText from '../FatText';
 import {
   HeartFull,
@@ -158,7 +159,7 @@ export default ({
               );
           })}
       </Comments>
-      <Timestamp>{createdAt}</Timestamp>
+      <Timestamp>{timeago.format(new Date(createdAt))}</Timestamp>
       <CommentInputarea>
         <Textarea
           placeholder="Add a comment..."

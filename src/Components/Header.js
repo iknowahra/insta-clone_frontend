@@ -71,8 +71,11 @@ const SearchInput = styled(Input)`
 `;
 
 const HeaderLink = styled(Link)`
-  &:not(:last-child) {
-    margin-right: 20px;
+  margin-right: 15px;
+  svg {
+    width: 21px;
+    height: 21px;
+    margin-top: 5px;
   }
 `;
 

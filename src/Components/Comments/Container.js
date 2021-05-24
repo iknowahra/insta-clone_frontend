@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
+import * as timeago from 'timeago.js';
 import useInput from '../../Hooks/EnterInput';
 import Presenter from './Presenter';
 import ModalPresenter from './ModalPresenter';
-
 import { TOGGLE_LIKE, ADD_COMMENT } from './Queries';
 
 const Container = ({
@@ -21,7 +21,6 @@ const Container = ({
   location,
   files = [],
 }) => {
-  console.log('id', id);
   const comment = useInput('');
   const [amILikingS, setAmILiking] = useState(amILiking);
   const [commentCountS, setCommentCount] = useState(commentCount);

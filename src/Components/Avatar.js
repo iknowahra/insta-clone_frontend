@@ -22,6 +22,7 @@ const Container = styled.div`
   background-image:url(${(props) => props.url});
   background-size: cover;
   border-radius: 50%;
+  border: ${(props) => props.theme.boxBorder};
 `;
 
 const Avatar = ({

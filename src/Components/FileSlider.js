@@ -4,9 +4,12 @@ import Carousel from 'react-bootstrap/Carousel';
 
 const MyImg = styled.img`
   width: auto;
-  height: ${(props) => (props.size === 'lg' ? '450px' : 'auto')};
-  max-height: 450px;
-  min-height: 300px;
+  @media only screen and (min-width: 993px) {
+    width: 100%;
+    object-fit: contain;
+    max-width: ${(props) => (props.size === 'lg' ? '100%' : '460px')};
+    height: ${(props) => (props.size === 'lg' ? '100%' : '450px')};
+  }
 `;
 
 export default ({ files, size }) => {

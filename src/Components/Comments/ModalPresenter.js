@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import * as timeago from 'timeago.js';
 import TextareaAutosize from 'react-autosize-textarea';
 import FatText from '../FatText';
 import {
@@ -8,6 +9,7 @@ import {
   Comment as CommentIcon,
   Airplain,
 } from '../Icons';
+import Avatar from '../Avatar';
 
 const Button = styled.span`
   cursor: pointer;
@@ -16,7 +18,7 @@ const Button = styled.span`
 const Meta = styled.div`
   display: flex;
   position: relative;
-  height: 420px;
+  height: 100%;
   flex-direction: column;
   .likecountClass {
     margin-bottom: 5px;
@@ -25,8 +27,12 @@ const Meta = styled.div`
 
 const CommentsList = styled.div`
   display: flex;
-  height: 90%;
+  height: auto;
   flex-direction: column;
+  @media not screen and (max-width: 993px) {
+    height: 66%;
+    overflow-y: auto;
+  }
 `;
 
 const Buttons = styled.div`
@@ -51,6 +57,7 @@ const Timestamp = styled.span`
   }
   &.commentTimestamp {
     margin-bottom: 10px;
+    margin-left: 3.5px;
   }
 `;
 
@@ -67,13 +74,16 @@ const Textarea = styled(TextareaAutosize)`
   align-items: flex-start;
   border: none;
   width: 100%;
-  max-height: 30px;
+  max-height: 40px;
   resize: none;
   font-size: 14px;
   &:focus {
     outline: none;
   }
   overflow-y: auto;
+  @media only screen and (max-width: 993px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const PostLink = styled.a``;
@@ -83,10 +93,14 @@ const InputComment = styled.footer`
   bottom: 0px;
   left: 0;
   width: 100%;
-  height: 30%;
   margin-top: 3px;
   padding: 3px 0;
   border-top: ${(props) => props.theme.boxBorder};
+  @media only screen and (max-width: 993px) {
+    position: relative;
+  }
+  @media not screen and (max-width: 993px) {
+  }
 `;
 
 const Comments = styled.ul`
@@ -95,10 +109,9 @@ const Comments = styled.ul`
 
   line-height: 130%;
   .usernameClass {
-    margin-right: 5px;
+    margin: 10px 5px;
   }
   .myComment {
-    margin: 10px 0;
   }
   &.yourComment {
     height: 250px;
@@ -106,12 +119,33 @@ const Comments = styled.ul`
     overflow-x: hidden;
     overflow-y: auto;
   }
+
+  @media only screen and (max-width: 993px) {
+    padding-top: 10px;
+    max-width: none;
+  }
 `;
 
 const Comment = styled.li`
   word-break: break-all;
 `;
+const FriendComment = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 10px;
+`;
+const MyComment = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 10px;
+`;
+const MyAvatar = styled(Avatar)`
+  margin-right: 15px;
+`;
 
+const CommentRow = styled.div``;
 export default ({
   user,
   caption,
@@ -128,22 +162,44 @@ export default ({
     <Meta>
       <CommentsList>
         <Comments className="yourComment">
-          <Comment className="myComment">
-            <FatText className="usernameClass" text={user?.userName} />
-            {caption}
-          </Comment>
-          {comments &&
-            comments.map((comment, index) => (
-              <>
+          <MyComment>
+            <MyAvatar
+              size="sm"
+              url={
+                user?.avatar ||
+                'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1'
+              }
+            />
+            <CommentRow>
+              <Comment className="myComment">
+                <FatText className="usernameClass" text={user?.userName} />
+                {caption}
+              </Comment>
+              <Timestamp className="commentTimestamp">
+                {timeago.format(new Date(createdAt))}
+              </Timestamp>
+            </CommentRow>
+          </MyComment>
+          {comments?.map((comment, index) => (
+            <FriendComment>
+              <MyAvatar
+                size="sm"
+                url={
+                  comment?.avatar ||
+                  'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1'
+                }
+              />
+              <CommentRow>
                 <Comment key={index}>
                   <FatText className="usernameClass" text={comment.userName} />
                   {comment.text}
                 </Comment>
                 <Timestamp className="commentTimestamp">
-                  {comment.createdAt}
+                  {timeago.format(new Date(comment.createdAt))}
                 </Timestamp>
-              </>
-            ))}
+              </CommentRow>
+            </FriendComment>
+          ))}
         </Comments>
       </CommentsList>
       <InputComment>
@@ -168,7 +224,9 @@ export default ({
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} likes`
           }
         />
-        <Timestamp className="postTimestamp">{createdAt}</Timestamp>
+        <Timestamp className="postTimestamp">
+          {timeago.format(new Date(createdAt))}
+        </Timestamp>
         <CommentInputarea>
           <Textarea
             placeholder="Add a comment..."
