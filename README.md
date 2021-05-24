@@ -7,7 +7,7 @@ If you want to see the demo version, [click here](https://ahrastargram.netlify.a
 
 ## Main Functions
 
-1. It can see your friends' photso with an **awesome slider**.
+1. It can see your friends' photos with an **awesome slider**.
 
 2. You can **comment your idea** and show **your like** on your friend's posting.
 
