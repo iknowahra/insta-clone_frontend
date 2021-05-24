@@ -99,8 +99,6 @@ const InputComment = styled.footer`
   @media only screen and (max-width: 993px) {
     position: relative;
   }
-  @media not screen and (max-width: 993px) {
-  }
 `;
 
 const Comments = styled.ul`
@@ -129,20 +127,15 @@ const Comments = styled.ul`
 const Comment = styled.li`
   word-break: break-all;
 `;
-const FriendComment = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  margin-bottom: 10px;
-`;
+
 const MyComment = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   margin-bottom: 10px;
 `;
-const MyAvatar = styled(Avatar)`
-  margin-right: 15px;
+const MyAvatar = styled.div`
+  margin-right: 5px;
 `;
 
 const CommentRow = styled.div``;
@@ -163,13 +156,15 @@ export default ({
       <CommentsList>
         <Comments className="yourComment">
           <MyComment>
-            <MyAvatar
-              size="sm"
-              url={
-                user?.avatar ||
-                'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1'
-              }
-            />
+            <MyAvatar>
+              <Avatar
+                size="sm"
+                url={
+                  user?.avatar ||
+                  'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1'
+                }
+              />
+            </MyAvatar>
             <CommentRow>
               <Comment className="myComment">
                 <FatText className="usernameClass" text={user?.userName} />
@@ -181,14 +176,16 @@ export default ({
             </CommentRow>
           </MyComment>
           {comments?.map((comment, index) => (
-            <FriendComment>
-              <MyAvatar
-                size="sm"
-                url={
-                  comment?.avatar ||
-                  'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1'
-                }
-              />
+            <MyComment>
+              <MyAvatar>
+                <Avatar
+                  size="sm"
+                  url={
+                    comment?.avatar ||
+                    'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1'
+                  }
+                />
+              </MyAvatar>
               <CommentRow>
                 <Comment key={index}>
                   <FatText className="usernameClass" text={comment.userName} />
@@ -198,7 +195,7 @@ export default ({
                   {timeago.format(new Date(comment.createdAt))}
                 </Timestamp>
               </CommentRow>
-            </FriendComment>
+            </MyComment>
           ))}
         </Comments>
       </CommentsList>

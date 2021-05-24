@@ -38,6 +38,7 @@ export default gql`
           userId
           userName
           createdAt
+          avatar
         }
         likeCount
         fileCount
