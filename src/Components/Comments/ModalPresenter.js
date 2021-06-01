@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import * as timeago from 'timeago.js';
 import TextareaAutosize from 'react-autosize-textarea';
-import FatText from '../FatText';
 import {
-  HeartFull,
-  HeartEmpty,
-  Comment as CommentIcon,
-  Airplain,
-} from '../Icons';
+  HeartOutlined,
+  HeartFilled,
+  MessageOutlined,
+  SendOutlined,
+} from '@ant-design/icons';
+import FatText from '../FatText';
 import Avatar from '../Avatar';
 
 const Button = styled.span`
@@ -202,13 +202,22 @@ export default ({
       <InputComment>
         <Buttons>
           <Button onClick={onToggleLike}>
-            {amILiking ? <HeartFull /> : <HeartEmpty />}
+            {amILiking ? (
+              <HeartOutlined style={{ fontSize: '1.5em', color: 'black' }} />
+            ) : (
+              <HeartFilled
+                style={{
+                  fontSize: '1.5em',
+                  color: '#ed4956',
+                }}
+              />
+            )}
           </Button>
           <Button>
-            <CommentIcon />
+            <MessageOutlined style={{ fontSize: '1.5em', color: 'black' }} />
           </Button>
           <Button>
-            <Airplain />
+            <SendOutlined style={{ fontSize: '1.5em', color: 'black' }} />
           </Button>
         </Buttons>
         <FatText

@@ -2,11 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
 import { Link, withRouter } from 'react-router-dom';
+import {
+  HomeOutlined,
+  HeartOutlined,
+  CompassOutlined,
+  UserOutlined,
+  SendOutlined,
+} from '@ant-design/icons';
 import Input from './Input';
 import SearchContainer from '../Routes/Search/Container';
 import useInput from '../Hooks/EnterInput';
 import { GET_MYPROFILE } from '../SharedQueries';
-import { Compass, HeartEmpty, User, Home, Airplain, LogoInsta } from './Icons';
+import { LogoInsta } from './Icons';
 
 const Header = styled.header`
   width: 100%;
@@ -109,26 +116,26 @@ const Component = ({ isLoggedIn, history }) => {
           </HeaderColumn>
           <HeaderColumn>
             <HeaderLink to="/#">
-              <Home />
+              <HomeOutlined style={{ fontSize: '1.5em', color: 'black' }} />
             </HeaderLink>
             <HeaderLink to="/message">
-              <Airplain />
+              <SendOutlined style={{ fontSize: '1.5em', color: 'black' }} />
             </HeaderLink>
             <HeaderLink to="/explore">
-              <Compass />
+              <CompassOutlined style={{ fontSize: '1.5em', color: 'black' }} />
             </HeaderLink>
             <HeaderLink to="/notifications">
-              <HeartEmpty />
+              <HeartOutlined style={{ fontSize: '1.5em', color: 'black' }} />
             </HeaderLink>
             {loading ? (
               <HeaderLink to="/#">
-                <User />
+                <UserOutlined style={{ fontSize: '1.5em', color: 'black' }} />
               </HeaderLink>
             ) : (
               <HeaderLink
                 to={data ? `/profile/${data.myProfile.user.userName}` : '/#'}
               >
-                <User />
+                <UserOutlined style={{ fontSize: '1.5em', color: 'black' }} />
               </HeaderLink>
             )}
           </HeaderColumn>

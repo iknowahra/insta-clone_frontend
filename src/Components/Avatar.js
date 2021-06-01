@@ -6,6 +6,8 @@ const getSize = (size) => {
   let number;
   if (size === 'sm') {
     number = 30;
+  } else if (size === 'smd') {
+    number = 45;
   } else if (size === 'md') {
     number = 60;
   } else if (size === 'lg') {
@@ -31,7 +33,7 @@ const Avatar = ({
 }) => <Container size={size} url={url} />;
 
 Avatar.propTypes = {
-  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  size: PropTypes.oneOf(['sm', 'smd', 'md', 'lg']),
   url: PropTypes.string.isRequired,
 };
 
