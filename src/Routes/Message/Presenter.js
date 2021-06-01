@@ -13,13 +13,14 @@ const Wrapper = styled.div`
   border: ${(props) => props.theme.boxBorder};
 `;
 const MessagesWrapper = styled.div`
-  width: 40%;
+  width: 330px;
+  min-width: 300px;
   height: 100%;
   border-right: ${(props) => props.theme.boxBorder};
 `;
 
 const MessageWrapper = styled.div`
-  width: 60%;
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -73,6 +74,7 @@ export default ({
         <>
           <MessagesWrapper>
             <Messages
+              friends={user?.friends}
               userName={user?.userName}
               rooms={rooms}
               setRoomInfo={(number, info) => onSetRoomInfo(number, info)}

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as timeago from 'timeago.js';
 import { ChevronDown, AddPerson } from '../../Components/Icons';
+import Invite from './Invite';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -15,10 +15,14 @@ const Header = styled.div`
   height: 60px;
   justify-content: center;
   border-bottom: ${(props) => props.theme.boxBorder};
-  > svg {
+`;
+
+const Icon = styled.div`
+  svg {
     align-self: center;
     position: absolute;
-    right: 7px;
+    right: 10px;
+    top: 15px;
     font-size: 30px;
   }
 `;
@@ -53,11 +57,11 @@ const ProfileWrapper = styled.div`
   justify-items: center;
   padding: 3px 20px;
   &:hover {
-    background-color: ${(props) => props.theme.veryLightGreyColor};
+    background-color: ${({ theme }) => theme.veryLightGreyColor};
   }
 `;
 const AvatarWrapper = styled.div`
-  width: 30%;
+  width: 25%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -117,14 +121,20 @@ const RoomInfo = styled.div`
   }
 `;
 
-export default ({ rooms = [], userName, setRoomInfo }) => {
+export default ({ friends, rooms = [], userName, setRoomInfo }) => {
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
   return (
     <Wrapper>
+      <Invite show={showModal} handleClose={handleClose} friends={friends} />
       <Header>
         <Title>
           {userName} <ChevronDown class="chevron" />
         </Title>
-        <AddPerson />
+        <Icon onClick={handleShow}>
+          <AddPerson />
+        </Icon>
       </Header>
       <Main>
         {rooms?.map((room, index) => {

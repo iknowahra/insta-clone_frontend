@@ -3,13 +3,11 @@ import { useLazyQuery, useSubscription, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
 import Presenter from './Presenter';
 import useInput from '../../Hooks/EnterInput';
-import { getUserNameVar } from '../../Apollo/LocalState';
 import {
   GET_MYPROFILE,
   GET_MYROOMS,
   GET_MESSAGE,
   SUB_MESSAGE,
-  SEARCH_ROOM,
   SEND_MESSAGE,
 } from './Queries';
 
