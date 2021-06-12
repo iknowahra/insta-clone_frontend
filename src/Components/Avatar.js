@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+const DEFAULT =
+  'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1';
 const getSize = (size) => {
   let number;
   if (size === 'sm') {
@@ -12,6 +14,8 @@ const getSize = (size) => {
     number = 60;
   } else if (size === 'lg') {
     number = 150;
+  } else {
+    number = size;
   }
   return `
         width:${number}px;
@@ -27,13 +31,11 @@ const Container = styled.div`
   border: ${(props) => props.theme.boxBorder};
 `;
 
-const Avatar = ({
-  size = 'sm',
-  url = 'https://i1.wp.com/talentedfish.com/wp-content/uploads/2019/04/no-avatar.jpg?ssl=1',
-}) => <Container size={size} url={url} />;
+const Avatar = ({ size = 'sm', url }) => {
+  return <Container size={size} url={url || DEFAULT} />;
+};
 
 Avatar.propTypes = {
-  size: PropTypes.oneOf(['sm', 'smd', 'md', 'lg']),
   url: PropTypes.string.isRequired,
 };
 

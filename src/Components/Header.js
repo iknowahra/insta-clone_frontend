@@ -6,7 +6,6 @@ import {
   HomeOutlined,
   HeartOutlined,
   CompassOutlined,
-  UserOutlined,
   SendOutlined,
 } from '@ant-design/icons';
 import Input from './Input';
@@ -14,6 +13,7 @@ import SearchContainer from '../Routes/Search/Container';
 import useInput from '../Hooks/EnterInput';
 import { GET_MYPROFILE } from '../SharedQueries';
 import { LogoInsta } from './Icons';
+import Avatar from './Avatar';
 
 const Header = styled.header`
   width: 100%;
@@ -52,6 +52,9 @@ const HeaderColumn = styled.div`
   &:last-child {
     margin-left: auto;
     text-align: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
   }
   &.searchTool {
     position: relative;
@@ -84,12 +87,15 @@ const HeaderLink = styled(Link)`
     height: 21px;
     margin-top: 5px;
   }
+  &:last-child {
+    margin-top: 3px;
+  }
 `;
 
 const Component = ({ isLoggedIn, history }) => {
   const search = useInput('');
   const { data, loading } = useQuery(GET_MYPROFILE);
-
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const onSearchSubmit = (e) => {
     e.preventDefault();
     if (search.value[0] === '#') {
@@ -129,13 +135,13 @@ const Component = ({ isLoggedIn, history }) => {
             </HeaderLink>
             {loading ? (
               <HeaderLink to="/#">
-                <UserOutlined style={{ fontSize: '1.5em', color: 'black' }} />
+                <Avatar url={userInfo?.avatar} size="25" />
               </HeaderLink>
             ) : (
               <HeaderLink
                 to={data ? `/profile/${data.myProfile.user.userName}` : '/#'}
               >
-                <UserOutlined style={{ fontSize: '1.5em', color: 'black' }} />
+                <Avatar url={userInfo?.avatar} size="25" />
               </HeaderLink>
             )}
           </HeaderColumn>

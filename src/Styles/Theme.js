@@ -12,6 +12,7 @@ export default {
   footerGreyColor: '#8E8E8E',
   visitedColor: '#00376b',
   blueColor: '#0095f6',
+  inactiveBlueColor: '#79c9f9',
   darkBlueColor: '#385185',
   redColor: '#ed4956',
   boxBorder: BOX_BORDER,
