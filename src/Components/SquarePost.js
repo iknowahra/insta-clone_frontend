@@ -89,6 +89,7 @@ const SquarePost = ({
         createdAt={createdAt}
         comments={comments}
         location={location}
+        commentCount={commentCount}
       />
       <Overlay onClick={handleShow}>
         <Number>

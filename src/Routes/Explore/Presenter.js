@@ -56,7 +56,6 @@ const PostSection = styled(Selector)`
 `;
 
 export default ({ data, loading }) => {
-  console.log(data);
   return (
     <Wrapper>
       {loading && <Loader />}

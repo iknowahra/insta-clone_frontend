@@ -131,6 +131,7 @@ export default ({
   amILiking,
   createdAt,
   location,
+  commentCount,
 }) => {
   return (
     <>
@@ -182,6 +183,7 @@ export default ({
                   amILiking={amILiking}
                   comments={comments}
                   createdAt={createdAt}
+                  commentCount={commentCount}
                 />
               </ViewComment>
             </Footer>

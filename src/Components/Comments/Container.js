@@ -26,7 +26,6 @@ const Container = ({
   const [commentCountS, setCommentCount] = useState(commentCount);
   const [likeCountS, setLikeCount] = useState(likeCount);
   const [commentS, setCommentS] = useState([...comments]);
-
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     variables: { postId: id },
   });
@@ -86,6 +85,7 @@ const Container = ({
           onToggleLike={onToggleLike}
           onPressEnter={onPressEnter}
           onSubmitComment={onSubmitComment}
+          commentCount={commentCountS}
         />
       ) : (
         <Presenter
@@ -132,7 +132,7 @@ Container.propTypes = {
     }),
   ).isRequired,
   createdAt: PropTypes.string.isRequired,
-  commentCount: PropTypes.number.isRequired,
+  commentCount: PropTypes.number,
   files: PropTypes.array,
 };
 

@@ -150,6 +150,7 @@ export default ({
   onToggleLike,
   onPressEnter,
   onSubmitComment,
+  commentCount,
 }) => {
   return (
     <Meta>
@@ -176,7 +177,7 @@ export default ({
             </CommentRow>
           </MyComment>
           {comments?.map((comment, index) => (
-            <MyComment>
+            <MyComment key={index + comment.id}>
               <MyAvatar>
                 <Avatar
                   size="sm"
@@ -187,7 +188,7 @@ export default ({
                 />
               </MyAvatar>
               <CommentRow>
-                <Comment key={index}>
+                <Comment>
                   <FatText className="usernameClass" text={comment.userName} />
                   {comment.text}
                 </Comment>
@@ -202,7 +203,7 @@ export default ({
       <InputComment>
         <Buttons>
           <Button onClick={onToggleLike}>
-            {amILiking ? (
+            {!amILiking ? (
               <HeartOutlined style={{ fontSize: '1.5em', color: 'black' }} />
             ) : (
               <HeartFilled

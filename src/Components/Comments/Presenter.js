@@ -117,7 +117,7 @@ export default ({
       />
       <Buttons>
         <Button onClick={onToggleLike}>
-          {amILiking ? (
+          {!amILiking ? (
             <HeartOutlined style={{ fontSize: '1.5em', color: 'black' }} />
           ) : (
             <HeartFilled
