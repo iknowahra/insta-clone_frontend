@@ -1,9 +1,7 @@
 # instagram clone (web)
 
 This repository is for cloning an instagram web application.
-If you want to see the demo version, [click here](https://ahrastargram.netlify.app/)
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/e431b8a5-c4a9-4169-b7ed-d696d0c39623/deploy-status)](https://app.netlify.com/sites/ahrastargram/deploys)
+If you want to see the demo version, [click here](http://ahrastagram.s3-website-ap-southeast-1.amazonaws.com/#/)
 
 ## Main Functions
 
