@@ -1,7 +1,7 @@
 # instagram clone (web)
 
 This repository is for cloning an instagram web application.
-If you want to see the demo version, [click here](http://ahrastagram.s3-website-ap-southeast-1.amazonaws.com/#/)
+If you want to see the demo version, [click here](https://main.dw52t2jv33iof.amplifyapp.com/#/)
 
 ## Main Functions
 
@@ -11,12 +11,9 @@ If you want to see the demo version, [click here](http://ahrastagram.s3-website-
 
 3. It can provide **search** tools to find users and posting.
 
-
 4. You can **follow/unfollow** interesting users.
 
-
 <img src="demo/home.gif" alt="home page demo" style="zoom:50%;" />
-
 
 ## Message
 

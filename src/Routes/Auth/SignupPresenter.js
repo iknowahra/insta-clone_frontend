@@ -71,7 +71,6 @@ export default ({
   onSignup,
   responseFacebook,
 }) => {
-  console.log(onSignup);
   return (
     <>
       <Intro>
