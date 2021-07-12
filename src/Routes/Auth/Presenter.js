@@ -93,7 +93,7 @@ export default ({
             firstName={firstName}
             lastName={lastName}
             onSignup={onSignup}
-            responseFacebook={responseFacebook}
+            responseFacebook={(response) => responseFacebook(response)}
           />
         ) : (
           <LogIn
@@ -103,7 +103,7 @@ export default ({
             onLogin={onLogin}
             onConfirm={onConfirm}
             action={action}
-            responseFacebook={responseFacebook}
+            responseFacebook={(response) => responseFacebook(response)}
           />
         )}
       </Form>

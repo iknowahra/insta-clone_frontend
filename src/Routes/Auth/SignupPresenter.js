@@ -71,6 +71,7 @@ export default ({
   onSignup,
   responseFacebook,
 }) => {
+  console.log(onSignup);
   return (
     <>
       <Intro>
@@ -82,28 +83,31 @@ export default ({
           scope="public_profile,email"
           callback={(response) => responseFacebook(response)}
           render={(renderProps) => (
-            <Button text="Log in with Facebook" onClick={renderProps.onClick} />
+            <Button
+              text="Log in with Facebook"
+              onClick={() => renderProps.onClick}
+            />
           )}
         />
         <Line />
         <Or>or</Or>
       </Intro>
       {action === 'signUp' && (
-        <form onSubmit={onSignup}>
+        <form>
           <Input placeholder="Email" {...email} type="email" />
           <Input placeholder="First name" {...firstName} />
           <Input placeholder="Last name" {...lastName} />
           <Input placeholder="Username" {...username} />
           <Input placeholder="Password" {...password} type="password" />
-          <Button text="Sign up" />
+          <Button text="Sign up" type="submit" onClick={(e) => onSignup(e)} />
         </form>
       )}
       {action === 'signUpFb' && (
-        <form onSubmit={onSignup}>
+        <form>
           <Input placeholder="First name" {...firstName} />
           <Input placeholder="Last name" {...lastName} />
           <Input placeholder="Username" {...username} />
-          <Button text="Sign up" />
+          <Button text="Sign up" type="submit" onClick={(e) => onSignup(e)} />
         </form>
       )}
 

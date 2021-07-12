@@ -7,6 +7,12 @@ export const LOG_IN = gql`
       token
       error
       user {
+        id
+        email
+        firstName
+        lastName
+        userName
+        avatar
         confirmSecret
       }
     }
@@ -63,6 +69,9 @@ export const LOG_IN_FB = gql`
       error
       user {
         id
+        email
+        firstName
+        lastName
         userName
         avatar
         confirmSecret

@@ -65,6 +65,7 @@ export default () => {
         }
       } else {
         toast.success('Log In Success!');
+        localStorage.setItem('userInfo', JSON.stringify(loginEmail?.user));
         if (!loginEmail.user.confirmSecret) {
           setTimeout(() => setAction('confirm'), 3000);
         } else {
@@ -168,6 +169,7 @@ export default () => {
         }
       } else {
         localStorage.setItem('token', loginFb.token);
+        localStorage.setItem('userInfo', JSON.stringify(loginFb?.user));
         setTimeout(() => isLogginVar(!!localStorage.getItem('token')), 3000);
       }
     } else {
@@ -193,7 +195,7 @@ export default () => {
       onSignup={onSignup}
       onConfirm={onConfirm}
       onSendEmail={onSendEmail}
-      responseFacebook={responseFacebook}
+      responseFacebook={(response) => responseFacebook(response)}
     />
   );
 };

@@ -63,15 +63,15 @@ export default ({
       <form onSubmit={onConfirm}>
         <Input placeholder="Email" {...email} type="email" />
         <Input placeholder="secret" {...secret} />
-        <Button text="Confirm" />
+        <Button text="Confirm" type="submit" onClick={(e) => onConfirm(e)} />
       </form>
     </>
   ) : (
     <>
-      <form onSubmit={onLogin}>
+      <form>
         <Input placeholder="Email" {...email} type="email" />
         <Input placeholder="Password" {...password} type="password" />
-        <Button text="Log In" />
+        <Button text="Log In" type="submit" onClick={(e) => onLogin(e)} />
       </form>
       <FacebookLogin
         appId="250653766733527"
@@ -83,7 +83,7 @@ export default ({
           <Facebook>
             <Line />
             <Or>or</Or>
-            <a href="#" onClick={renderProps.onClick}>
+            <a href="#" onClick={() => renderProps.onClick}>
               <LogoFbSmall />
               Log in with Facebook
             </a>
