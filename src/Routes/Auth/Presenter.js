@@ -71,8 +71,8 @@ export default ({
   setAction,
   onLogin,
   onSignup,
-  onConfirm,
-  onSendEmail,
+  /* onConfirm,
+  onSendEmail, */
   responseFacebook,
 }) => {
   return (
@@ -101,7 +101,7 @@ export default ({
             password={password}
             secret={secret}
             onLogin={onLogin}
-            onConfirm={onConfirm}
+            /*  onConfirm={onConfirm} */
             action={action}
             responseFacebook={(response) => responseFacebook(response)}
           />
@@ -120,7 +120,7 @@ export default ({
             <Link onClick={() => setAction('signUp')}>Sign up</Link>
           </>
         )}{' '}
-        {action === 'confirm' && (
+        {/* {action === 'confirm' && (
           <>
             Check your email for secret.{' '}
             <Link
@@ -131,7 +131,7 @@ export default ({
               Resend email
             </Link>
           </>
-        )}
+        )} */}
       </StateChanger>
     </Wrapper>
   );

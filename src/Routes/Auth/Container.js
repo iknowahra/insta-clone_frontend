@@ -5,11 +5,11 @@ import { isLogginVar } from '../../Apollo/LocalState';
 import Presenter from './Presenter';
 import useInput from '../../Hooks/EnterInput';
 import {
-  CONFIRM_SECRET,
   LOG_IN,
-  REQUEST_SECRET,
   SIGN_UP,
   LOG_IN_FB,
+  CONFIRM_SECRET,
+  REQUEST_SECRET,
 } from './Queries';
 
 export default () => {
@@ -25,7 +25,7 @@ export default () => {
   const password = useInput('');
   const secret = useInput('');
 
-  const [requestSecretMutation] = useMutation(REQUEST_SECRET, {
+  /* const [requestSecretMutation] = useMutation(REQUEST_SECRET, {
     update: (_, { data }) => {
       const { requestSecret } = data;
       if (requestSecret.error !== null) {
@@ -37,9 +37,9 @@ export default () => {
     variables: {
       email: email.value,
     },
-  });
+  }); */
 
-  const [confirmSecretMutation] = useMutation(CONFIRM_SECRET, {
+  /* const [confirmSecretMutation] = useMutation(CONFIRM_SECRET, {
     update: (_, { data: { confirmSecret } }) => {
       if (!confirmSecret.ok) {
         toast.error(confirmSecret.error);
@@ -52,7 +52,7 @@ export default () => {
       email: email.value,
       secret: secret.value,
     },
-  });
+  }); */
 
   const [loginEmailMutation] = useMutation(LOG_IN, {
     update: (_, { data }) => {
@@ -66,11 +66,10 @@ export default () => {
       } else {
         toast.success('Log In Success!');
         localStorage.setItem('userInfo', JSON.stringify(loginEmail?.user));
-        if (!loginEmail.user.confirmSecret) {
+        /* if (!loginEmail.user.confirmSecret) {
           setTimeout(() => setAction('confirm'), 3000);
-        } else {
-          setTimeout(() => isLogginVar(true), 3000);
-        }
+        } */
+        setTimeout(() => isLogginVar(true), 3000);
       }
     },
     variables: { email: email.value, password: password.value },
@@ -85,7 +84,7 @@ export default () => {
           setTimeout(() => setAction('logIn'), 3000);
         }
       } else {
-        requestSecretMutation();
+        // requestSecretMutation();
         toast.success('Account created! Log In now');
         setTimeout(() => setAction('logIn'), 3000);
       }
@@ -130,10 +129,10 @@ export default () => {
     }
   };
 
-  const onConfirm = (e) => {
+  /* const onConfirm = (e) => {
     e.preventDefault();
     if (email.value !== '' && secret.value !== '') {
-      confirmSecretMutation();
+      // confirmSecretMutation();
     } else {
       toast.error('All field are required');
     }
@@ -141,7 +140,7 @@ export default () => {
 
   const onSendEmail = () => {
     requestSecretMutation();
-  };
+  }; */
 
   const fbLoginProcess = async (process) => {
     setFbData(process);
@@ -193,8 +192,8 @@ export default () => {
       secret={secret}
       onLogin={onLogin}
       onSignup={onSignup}
-      onConfirm={onConfirm}
-      onSendEmail={onSendEmail}
+      /*  onConfirm={onConfirm}
+      onSendEmail={onSendEmail} */
       responseFacebook={(response) => responseFacebook(response)}
     />
   );

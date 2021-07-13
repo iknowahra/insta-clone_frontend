@@ -52,21 +52,13 @@ const Line = styled.div`
 export default ({
   email,
   password,
-  secret,
   onLogin,
-  onConfirm,
-  action,
   responseFacebook,
+  /*  onConfirm, 
+  secret,
+  action, */
 }) => {
-  return action === 'confirm' ? (
-    <>
-      <form onSubmit={onConfirm}>
-        <Input placeholder="Email" {...email} type="email" />
-        <Input placeholder="secret" {...secret} />
-        <Button text="Confirm" type="submit" onClick={(e) => onConfirm(e)} />
-      </form>
-    </>
-  ) : (
+  return (
     <>
       <form>
         <Input placeholder="Email" {...email} type="email" />
@@ -94,3 +86,13 @@ export default ({
     </>
   );
 };
+
+/* action === 'confirm' ? (
+  <>
+    <form onSubmit={onConfirm}>
+      <Input placeholder="Email" {...email} type="email" />
+      <Input placeholder="secret" {...secret} />
+      <Button text="Confirm" type="submit" onClick={(e) => onConfirm(e)} />
+    </form>
+  </>
+) : */
