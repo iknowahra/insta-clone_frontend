@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { isLogginVar } from '../../Apollo/LocalState';
-import Button from '../../Components/Button';
+import { Link, withRouter } from 'react-router-dom';
 import FollowButton from '../../Components/FollowButton';
 import SquarePost from '../../Components/SquarePost';
 import Loader from '../../Components/Loader';
@@ -27,7 +26,7 @@ const HeaderColumn = styled.div`
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    border: ${(props) => props.theme.boxBorder};
+    border: ${({ theme }) => theme.boxBorder};
   }
   .postCount {
     font-size: 16px;
@@ -88,7 +87,7 @@ const NoPost = styled.div`
 
 const Main = styled.div`
   padding: 50px 15px;
-  border-top: ${(props) => props.theme.boxBorder};
+  border-top: ${({ theme }) => theme.boxBorder};
 `;
 
 const Selector = styled.div`
@@ -104,6 +103,19 @@ const PostSection = styled(Selector)`
   grid-template-columns: repeat(3, 290px);
   grid-template-rows: 290px;
   grid-auto-rows: 290px;
+`;
+
+const EditProfileButton = styled(Link)`
+  border: ${({ theme }) => theme.boxBorder};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  height: 30px;
+  color: black;
+  padding: 0px 10px;
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default ({ data, loading, onLogOut }) => {
@@ -133,7 +145,9 @@ export default ({ data, loading, onLogOut }) => {
                   />
                 )}
                 {data.seeUser.user.itsMe && (
-                  <Button text="Log out" onClick={onLogOut} />
+                  <EditProfileButton to="/accounts">
+                    Edit Profile
+                  </EditProfileButton>
                 )}
               </User>
 

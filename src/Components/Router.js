@@ -7,6 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import Auth from '../Routes/Auth/index';
+import Account from '../Routes/Acoount/index';
 import Search from '../Routes/Result';
 import Feed from '../Routes/Feed';
 import Message from '../Routes/Message/index';
@@ -19,6 +20,7 @@ const LoggedInRoutes = () => (
     <Route path="/explore" component={Explore} />
     <Route path="/message" component={Message} />
     <Route path="/search" component={Search} />
+    <Route path="/accounts" component={Account} />
     <Route path="/profile/:username" component={Profile} />
     <Redirect from="*" to="/" />
   </Switch>

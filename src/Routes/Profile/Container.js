@@ -11,8 +11,7 @@ export default withRouter(({ match: { params } }) => {
   });
   const onLogOut = () => {
     localStorage.removeItem('token');
-    isLogginVar(localStorage.getItem('token'));
-    console.log('profile token check', localStorage.getItem('token'));
+    isLogginVar(undefined);
   };
   return <Presenter data={data} loading={loading} onLogOut={onLogOut} />;
 });
