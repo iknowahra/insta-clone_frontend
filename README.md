@@ -1,7 +1,7 @@
 # instagram clone (web)
 
 This repository is for cloning an instagram web application.
-If you want to see the demo version, [click here](https://main.dw52t2jv33iof.amplifyapp.com/#/)
+If you want to see the demo version, [click here](https://main.d3670zb3ymnhqq.amplifyapp.com/)
 
 ## Main Functions
 
